@@ -1,17 +1,29 @@
+/* eslint-disable import/named */
+/* eslint-disable no-shadow */
 /* eslint-disable react/prop-types */
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { connect } from 'react-redux';
 import { userContext } from '../contexts/user-context';
+import loginResponse from '../redux/actions';
 
-function LogInPage() {
+function LogInPage({ loginResponse, loading, loaded, login }) {
   const { setSessionUser } = useContext(userContext);
   const [username, setUsername] = useState(null);
+  useEffect(() => {
+    if (!loading && loaded) {
+      localStorage.setItem('sessionUser', JSON.stringify(login));
+
+      // setSessionUser handles of redirecting to Store-page
+      setSessionUser(username);
+    }
+  }, [username, setSessionUser, loading, loaded, login]);
 
   const handleSubmit = (ev) => {
     ev.preventDefault();
 
     if (username && username.length >= 4 && username.length <= 16) {
-      setSessionUser(username);
-      localStorage.setItem('sessionUser', JSON.stringify({ username }));
+      loginResponse(username);
+
       return console.log(`You are log in as ${username}`);
     }
 
@@ -32,4 +44,11 @@ function LogInPage() {
   );
 }
 
-export default LogInPage;
+export default connect(
+  (state) => ({
+    login: state.login.entities,
+    loading: state.login.loading,
+    loaded: state.login.loaded,
+  }),
+  { loginResponse }
+)(LogInPage);
