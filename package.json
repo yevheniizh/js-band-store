@@ -2,6 +2,7 @@
   "name": "js-band-store",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://zzzhyrov.github.io/js-band-store",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -22,7 +23,9 @@
     "lint": "eslint './src/**/*.{js,jsx}'",
     "lint:fix": "eslint './src/**/*.{js,jsx}' --fix",
     "stylelint": "stylelint './src/**/*.{css,scss}'",
-    "stylelint:fix": "stylelint './src/**/*.{css,scss}' --fix"
+    "stylelint:fix": "stylelint './src/**/*.{css,scss}' --fix",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -72,6 +75,7 @@
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "gh-pages": "^3.1.0",
     "husky": "^4.3.8",
     "lint-staged": "^10.5.4",
     "prettier": "^2.2.1",
