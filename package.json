@@ -15,13 +15,38 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test:staged": "npm run test -- --watchAll=false --passWithNoTests --findRelatedTests",
+    "eject": "react-scripts eject",
+    "lint:staged": "eslint --fix",
+    "lint": "eslint './src/**/*.{js,jsx}'",
+    "lint:fix": "eslint './src/**/*.{js,jsx}' --fix"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
-    ]
+      "react-app/jest",
+      "airbnb",
+      "airbnb/hooks",
+      "prettier"
+    ],
+    "plugins": [
+      "prettier",
+      "react-hooks"
+    ],
+    "rules": {
+      "prettier/prettier": "error",
+      "arrow-body-style": "off",
+      "prefer-arrow-callback": "off",
+      "import/no-anonymous-default-export": "off",
+      "react/jsx-filename-extension": "off",
+      "import/extensions": "off",
+      "func-names": "off",
+      "no-param-reassign": "off",
+      "spaced-comment": "off",
+      "no-console": "off",
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn"
+    }
   },
   "browserslist": {
     "production": [
@@ -34,5 +59,18 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint": "^7.22.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "^4.3.8",
+    "lint-staged": "^10.5.4",
+    "prettier": "^2.2.1"
   }
 }

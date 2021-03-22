@@ -1,0 +1,8 @@
+{
+  "src/**/*.{js,jsx}": [
+    "npm run lint:staged",
+    "prettier --write",
+    "npm run test:staged"
+  ],
+  "*.json": ["prettier --write"]
+}
