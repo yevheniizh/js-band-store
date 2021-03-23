@@ -1,9 +1,10 @@
 .button {
-  background-color: #fff;
-  border: 2px solid #e4661e;
+  background-color: var(--blue);
+  border: none;
   box-shadow: none;
-  color: #e4661e;
+  color: var(--white);
   cursor: pointer;
+  outline: none;
   padding: 0;
   width: 100%;
 }
@@ -11,9 +12,8 @@
 .button:hover,
 .button:focus,
 .button:active {
-  background-color: #e4661e;
+  background-color: var(--light-blue);
   box-shadow: none;
-  color: #fff;
-  opacity: 1.5;
+  color: var(--white);
   outline: none;
 }

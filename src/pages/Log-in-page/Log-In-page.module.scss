@@ -21,7 +21,7 @@
 
     .log-in-page__title {
       align-items: center;
-      color: #808080;
+      color: var(--grey);
       display: flex;
       font-size: 2.5rem;
       font-weight: 500;
@@ -38,7 +38,7 @@
       width: 25%;
 
       input {
-        border: 1px solid #808080;
+        border: 1px solid var(--grey);
         border-radius: 0.5rem;
         box-shadow: none;
         font-size: 1.25rem;

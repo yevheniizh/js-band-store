@@ -8,7 +8,7 @@
   .bounce1,
   .bounce2 {
     animation: sk-bounce 2s infinite ease-in-out;
-    background-color: #e4661e;
+    background-color: var(--blue);
     border-radius: 50%;
     height: 100%;
     // left: 0;
