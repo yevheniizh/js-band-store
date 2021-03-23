@@ -1,8 +1,8 @@
 /* eslint-disable import/named */
 /* eslint-disable no-shadow */
-/* eslint-disable react/prop-types */
 import React, { useState, useContext, useEffect } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { userContext } from '../contexts/user-context';
 import { loginResponse } from '../redux/actions';
 
@@ -43,6 +43,13 @@ function LogInPage({ loginResponse, loading, loaded, login }) {
     </div>
   );
 }
+
+LogInPage.propTypes = {
+  loginResponse: PropTypes.func.isRequired,
+  login: PropTypes.objectOf(PropTypes.string.isRequired).isRequired,
+  loading: PropTypes.bool.isRequired,
+  loaded: PropTypes.bool.isRequired,
+};
 
 export default connect(
   (state) => ({

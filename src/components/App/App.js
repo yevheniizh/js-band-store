@@ -1,7 +1,7 @@
 /* eslint-disable no-shadow */
-/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { Switch, Redirect, Route } from 'react-router-dom';
 import { UserProvider } from '../../contexts/user-context';
 import { setExistedSessionUser } from '../../redux/actions';
@@ -52,6 +52,11 @@ function App({ setExistedSessionUser, loaded }) {
     </UserProvider>
   );
 }
+
+App.propTypes = {
+  setExistedSessionUser: PropTypes.func.isRequired,
+  loaded: PropTypes.bool.isRequired,
+};
 
 export default connect(
   (state) => ({
