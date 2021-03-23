@@ -4,7 +4,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { userContext } from '../contexts/user-context';
-import loginResponse from '../redux/actions';
+import { loginResponse } from '../redux/actions';
 
 function LogInPage({ loginResponse, loading, loaded, login }) {
   const { setSessionUser } = useContext(userContext);
@@ -13,7 +13,7 @@ function LogInPage({ loginResponse, loading, loaded, login }) {
     if (!loading && loaded) {
       localStorage.setItem('sessionUser', JSON.stringify(login));
 
-      // setSessionUser handles of redirecting to Store-page
+      // setSessionUser handles redirecting to Store-page
       setSessionUser(username);
     }
   }, [username, setSessionUser, loading, loaded, login]);

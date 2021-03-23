@@ -1,4 +1,10 @@
-import { LOGIN, REQUEST, SUCCESS, FAILURE } from '../constants';
+import {
+  LOGIN,
+  SET_EXISTED_SESSION_USER,
+  REQUEST,
+  SUCCESS,
+  FAILURE,
+} from '../constants';
 
 const initialState = {
   entities: {},
@@ -31,6 +37,13 @@ export default (state = initialState, action) => {
         loading: false,
         loaded: false,
         error,
+      };
+
+    case SET_EXISTED_SESSION_USER:
+      return {
+        ...state,
+        entities: data,
+        loaded: true,
       };
 
     default:

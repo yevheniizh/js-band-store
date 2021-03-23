@@ -1,13 +1,22 @@
-import React, { useState } from 'react';
-
+/* eslint-disable no-shadow */
+/* eslint-disable react/prop-types */
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import { Switch, Redirect, Route } from 'react-router-dom';
+import { UserProvider } from '../../contexts/user-context';
+import { setExistedSessionUser } from '../../redux/actions';
+
 import LogInPage from '../../pages/Log-in-page';
 import NotFoundPage from '../../pages/Not-found-page';
-import { UserProvider } from '../../contexts/user-context';
 
-function App() {
-  const getSessionUser = JSON.parse(localStorage.getItem('sessionUser'));
-  const [sessionUser, setSessionUser] = useState(getSessionUser);
+function App({ setExistedSessionUser, loaded }) {
+  const existedSessionUser = JSON.parse(localStorage.getItem('sessionUser')); // null if user is not existed yet
+  const [sessionUser, setSessionUser] = useState(existedSessionUser);
+  useEffect(() => {
+    if (!loaded && sessionUser) {
+      setExistedSessionUser(existedSessionUser);
+    }
+  }, [loaded, sessionUser, setExistedSessionUser, existedSessionUser]);
 
   if (sessionUser) {
     return (
@@ -44,4 +53,9 @@ function App() {
   );
 }
 
-export default App;
+export default connect(
+  (state) => ({
+    loaded: state.login.loaded,
+  }),
+  { setExistedSessionUser }
+)(App);
