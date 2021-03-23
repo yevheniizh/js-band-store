@@ -1,5 +1,13 @@
 @import-normalize;
 
+:root {
+  --black: #1d1d1d;
+  --white: #ffffff;
+  --grey: #808080;
+  --blue: #2287da;
+  --light-blue: #4892ce;
+}
+
 html {
   box-sizing: border-box;
 }
