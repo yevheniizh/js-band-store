@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { userContext } from '../contexts/user-context';
 import { loginResponse } from '../redux/actions';
+import Loader from '../components/Loader';
 
 function LogInPage({ loginResponse, loading, loaded, login }) {
   const { setSessionUser } = useContext(userContext);
@@ -17,6 +18,8 @@ function LogInPage({ loginResponse, loading, loaded, login }) {
       setSessionUser(username);
     }
   }, [username, setSessionUser, loading, loaded, login]);
+
+  if (loading && !loaded) return <Loader />;
 
   const handleSubmit = (ev) => {
     ev.preventDefault();
