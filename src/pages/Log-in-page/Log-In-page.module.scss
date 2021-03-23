@@ -1,0 +1,88 @@
+.log-in-page {
+  align-items: center;
+  animation: fadeIn ease 2s;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  padding: 1rem;
+
+  .log-in-page__container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .log-in-page__default-banner {
+      display: flex;
+      height: 100%;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .log-in-page__title {
+      align-items: center;
+      color: var(--grey);
+      display: flex;
+      font-size: 2.5rem;
+      font-weight: 500;
+      height: 100%;
+      justify-content: center;
+      margin: 2rem 0;
+      width: 100%;
+    }
+
+    form {
+      align-content: space-between;
+      display: flex;
+      flex-direction: column;
+      width: 25%;
+
+      input {
+        border: 1px solid var(--grey);
+        border-radius: 0.5rem;
+        box-shadow: none;
+        font-size: 1.25rem;
+        height: 3rem;
+        margin-bottom: 1rem;
+        padding: 0;
+        padding-left: 1rem;
+        width: 100%;
+      }
+
+      button {
+        border-radius: 0.5rem;
+        font-size: 1.25rem;
+        height: 3rem;
+        margin-bottom: 1rem;
+      }
+    }
+
+    @media screen and (max-width: 1024px) {
+      form {
+        align-content: space-between;
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+      }
+    }
+
+    @media screen and (max-width: 720px) {
+      form {
+        align-content: space-between;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+      }
+    }
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+}
