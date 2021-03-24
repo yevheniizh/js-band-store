@@ -8,7 +8,7 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
-  const { type, data, error } = action;
+  const { type, data, failureData, error } = action;
 
   switch (type) {
     case LOAD_BOOKS + REQUEST:
@@ -19,9 +19,17 @@ export default (state = initialState, action) => {
         error: null,
       };
     case LOAD_BOOKS + SUCCESS:
+      if (failureData)
+        return {
+          ...state,
+          entities: failureData,
+          loading: false,
+          loaded: true,
+        };
+
       return {
         ...state,
-        entities: data,
+        entities: { books: data },
         loading: false,
         loaded: true,
       };

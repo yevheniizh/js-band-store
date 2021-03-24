@@ -6,7 +6,7 @@ import { Switch, Redirect, Route } from 'react-router-dom';
 import { UserProvider } from '../../contexts/user-context';
 import { setExistedSessionUser } from '../../redux/actions';
 
-import LogInPage from '../../pages/Log-in-page';
+import LogInPage from '../../pages/Log-In-page';
 import NotFoundPage from '../../pages/Not-found-page';
 import Header from '../header/header';
 import StorePage from '../../pages/Store-page';
