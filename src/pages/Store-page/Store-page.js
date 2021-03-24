@@ -8,6 +8,8 @@ import { v4 as uuid } from 'uuid';
 import { loadBooks } from '../../redux/actions';
 import { userContext } from '../../contexts/user-context';
 import Loader from '../../components/Loader';
+import BookCard from '../../components/Book-card';
+import styles from './Store-page.module.scss';
 
 function StorePage({ loadBooks, loading, loaded, books, failureData }) {
   const { sessionUser } = useContext(userContext);
@@ -19,9 +21,9 @@ function StorePage({ loadBooks, loading, loaded, books, failureData }) {
 
   if (loaded && books)
     return (
-      <div>
-        {books.map(() => (
-          <div key={uuid()}>Book</div>
+      <div className={styles['store-page-container']}>
+        {books.map((book) => (
+          <BookCard key={uuid()} book={book} />
         ))}
       </div>
     );
