@@ -1,5 +1,6 @@
 import {
-  LOGIN,
+  LOG_IN,
+  SIGN_OUT,
   SET_EXISTED_SESSION_USER,
   REQUEST,
   SUCCESS,
@@ -17,21 +18,21 @@ export default (state = initialState, action) => {
   const { type, data, error } = action;
 
   switch (type) {
-    case LOGIN + REQUEST:
+    case LOG_IN + REQUEST:
       return {
         ...state,
         loading: true,
         loaded: false,
         error: null,
       };
-    case LOGIN + SUCCESS:
+    case LOG_IN + SUCCESS:
       return {
         ...state,
         entities: data,
         loading: false,
         loaded: true,
       };
-    case LOGIN + FAILURE:
+    case LOG_IN + FAILURE:
       return {
         ...state,
         loading: false,
@@ -44,6 +45,13 @@ export default (state = initialState, action) => {
         ...state,
         entities: data,
         loaded: true,
+      };
+
+    case SIGN_OUT:
+      return {
+        ...state,
+        entities: {},
+        loaded: false,
       };
 
     default:

@@ -17,7 +17,7 @@ function LogInPage({ loginResponse, loading, loaded, login }) {
   useEffect(() => {
     if (!loading && loaded) {
       localStorage.setItem('sessionUser', JSON.stringify(login));
-      setSessionUser(username); // setSessionUser redirect us to the Store-page
+      setSessionUser(login); // setSessionUser redirect us to the Store-page
     }
   }, [username, setSessionUser, loading, loaded, login]);
 

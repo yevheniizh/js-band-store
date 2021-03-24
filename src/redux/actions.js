@@ -1,5 +1,6 @@
 import {
-  LOGIN,
+  LOG_IN,
+  SIGN_OUT,
   SET_EXISTED_SESSION_USER,
   REQUEST,
   SUCCESS,
@@ -13,8 +14,12 @@ export const setExistedSessionUser = (username) => ({
   data: username,
 });
 
+export const logOut = () => ({
+  type: SIGN_OUT,
+});
+
 export const loginResponse = (username) => async (dispatch) => {
-  dispatch({ type: LOGIN + REQUEST });
+  dispatch({ type: LOG_IN + REQUEST });
   try {
     const response = await fetch(`${BACKEND_URL}/signin`, {
       method: 'POST',
@@ -25,8 +30,8 @@ export const loginResponse = (username) => async (dispatch) => {
     });
     const data = await response.json();
 
-    dispatch({ type: LOGIN + SUCCESS, data });
+    dispatch({ type: LOG_IN + SUCCESS, data });
   } catch (error) {
-    dispatch({ type: LOGIN + FAILURE, error });
+    dispatch({ type: LOG_IN + FAILURE, error });
   }
 };
