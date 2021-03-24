@@ -9,6 +9,7 @@ import { setExistedSessionUser } from '../../redux/actions';
 import LogInPage from '../../pages/Log-in-page';
 import NotFoundPage from '../../pages/Not-found-page';
 import Header from '../header/header';
+import StorePage from '../../pages/Store-page';
 
 function App({ setExistedSessionUser, loaded }) {
   const existedSessionUser = JSON.parse(localStorage.getItem('sessionUser')); // null if user is not existed yet
@@ -25,11 +26,7 @@ function App({ setExistedSessionUser, loaded }) {
         <UserProvider value={{ sessionUser, setSessionUser }}>
           <Header />
           <Switch>
-            <Route
-              exact
-              path="/js-band-store"
-              component={() => <h1>Calendar</h1>}
-            />
+            <Route exact path="/js-band-store" component={StorePage} />
             <Route
               exact
               path="/js-band-store/not-found"

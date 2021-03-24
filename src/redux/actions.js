@@ -1,6 +1,7 @@
 import {
   LOG_IN,
   SIGN_OUT,
+  LOAD_BOOKS,
   SET_EXISTED_SESSION_USER,
   REQUEST,
   SUCCESS,
@@ -33,5 +34,25 @@ export const loginResponse = (username) => async (dispatch) => {
     dispatch({ type: LOG_IN + SUCCESS, data });
   } catch (error) {
     dispatch({ type: LOG_IN + FAILURE, error });
+  }
+};
+
+export const loadBooks = (username) => async (dispatch) => {
+  dispatch({ type: LOAD_BOOKS + REQUEST });
+
+  try {
+    const response = await fetch(`${BACKEND_URL}/books`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${username.token}`,
+      },
+    });
+
+    const data = await response.json();
+    console.log(data);
+
+    dispatch({ type: LOAD_BOOKS + SUCCESS, data });
+  } catch (error) {
+    dispatch({ type: LOAD_BOOKS + FAILURE, error });
   }
 };
