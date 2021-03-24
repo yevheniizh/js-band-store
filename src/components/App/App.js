@@ -8,6 +8,7 @@ import { setExistedSessionUser } from '../../redux/actions';
 
 import LogInPage from '../../pages/Log-in-page';
 import NotFoundPage from '../../pages/Not-found-page';
+import Header from '../header/header';
 
 function App({ setExistedSessionUser, loaded }) {
   const existedSessionUser = JSON.parse(localStorage.getItem('sessionUser')); // null if user is not existed yet
@@ -20,23 +21,26 @@ function App({ setExistedSessionUser, loaded }) {
 
   if (sessionUser) {
     return (
-      <UserProvider value={{ sessionUser, setSessionUser }}>
-        <Switch>
-          <Route
-            exact
-            path="/js-band-store"
-            component={() => <h1>Calendar</h1>}
-          />
-          <Route
-            exact
-            path="/js-band-store/not-found"
-            component={NotFoundPage}
-          />
-          <Redirect exact from="/js-band-store/login" to="/js-band-store" />
-          <Redirect exact from="/" to="/js-band-store" />
-          <Redirect to="/js-band-store/not-found" />
-        </Switch>
-      </UserProvider>
+      <>
+        <UserProvider value={{ sessionUser, setSessionUser }}>
+          <Header />
+          <Switch>
+            <Route
+              exact
+              path="/js-band-store"
+              component={() => <h1>Calendar</h1>}
+            />
+            <Route
+              exact
+              path="/js-band-store/not-found"
+              component={NotFoundPage}
+            />
+            <Redirect exact from="/js-band-store/login" to="/js-band-store" />
+            <Redirect exact from="/" to="/js-band-store" />
+            <Redirect to="/js-band-store/not-found" />
+          </Switch>
+        </UserProvider>
+      </>
     );
   }
 
