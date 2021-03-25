@@ -1,0 +1,47 @@
+.order-form {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  background-color: var(--light-grey);
+  border-radius: 0.25rem;
+  padding: 2rem;
+
+  .order-form__price,
+  .order-form__order,
+  .order-form__total {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 3rem;
+    padding: 0.5rem 0;
+
+    .order-form__price-count,
+    .order-form__total-count {
+      font-weight: 700;
+    }
+
+    .order-form__order-count {
+      height: 100%;
+      width: 4rem;
+    }
+  }
+
+  .order-form__order {
+    border-bottom: 1px dotted var(--heavy-grey);
+  }
+
+  .order-form__button {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+      width: 25%;
+      height: 2.5rem;
+      border-radius: 0.25rem;
+    }
+  }
+}

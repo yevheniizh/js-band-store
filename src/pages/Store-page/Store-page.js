@@ -120,11 +120,15 @@ function StorePage({ loadBooks, loading, loaded, books, failureData }) {
     );
   }
 
-  return (
-    <div>
-      <h1>Something went wrong: {failureData.message} 🙊</h1>
-    </div>
-  );
+  if (!books) {
+    return (
+      <div>
+        <h1>Something went wrong: {failureData.message} 🙊</h1>
+      </div>
+    );
+  }
+
+  return <Loader />;
 }
 
 StorePage.propTypes = {
