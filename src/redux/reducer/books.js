@@ -1,11 +1,4 @@
-import {
-  LOG_IN,
-  SIGN_OUT,
-  SET_EXISTED_SESSION_USER,
-  REQUEST,
-  SUCCESS,
-  FAILURE,
-} from '../constants';
+import { LOAD_BOOKS, REQUEST, SUCCESS, FAILURE } from '../constants';
 
 const initialState = {
   entities: {},
@@ -15,43 +8,37 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
-  const { type, data, error } = action;
+  const { type, data, failureData, error } = action;
 
   switch (type) {
-    case LOG_IN + REQUEST:
+    case LOAD_BOOKS + REQUEST:
       return {
         ...state,
         loading: true,
         loaded: false,
         error: null,
       };
-    case LOG_IN + SUCCESS:
+    case LOAD_BOOKS + SUCCESS:
+      if (failureData)
+        return {
+          ...state,
+          entities: failureData,
+          loading: false,
+          loaded: true,
+        };
+
       return {
         ...state,
-        entities: data,
+        entities: { books: data },
         loading: false,
         loaded: true,
       };
-    case LOG_IN + FAILURE:
+    case LOAD_BOOKS + FAILURE:
       return {
         ...state,
         loading: false,
         loaded: false,
         error,
-      };
-
-    case SET_EXISTED_SESSION_USER:
-      return {
-        ...state,
-        entities: data,
-        loaded: true,
-      };
-
-    case SIGN_OUT:
-      return {
-        ...state,
-        entities: {},
-        loaded: false,
       };
 
     default:

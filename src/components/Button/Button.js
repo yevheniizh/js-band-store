@@ -1,11 +1,12 @@
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/button-has-type */
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Button.module.scss';
 
-const Button = ({ type, description }) => {
+const Button = ({ type, description, ...props }) => {
   return (
-    <button type={type} className={styles.button}>
+    <button type={type} className={styles.button} {...props}>
       {description}
     </button>
   );
