@@ -84,6 +84,10 @@ function StorePage({ loadBooks, loading, loaded, books, failureData }) {
   if (loading || !loaded) return <Loader />;
 
   if (loaded && books && modifiedBooks) {
+    const bookContainer = modifiedBooks.map((book) => (
+      <BookCard key={uuid()} book={book} />
+    ));
+
     return (
       <>
         <div className={styles['store-page-navigation']}>
@@ -106,17 +110,21 @@ function StorePage({ loadBooks, loading, loaded, books, failureData }) {
           </div>
         </div>
         <div className={styles['store-page-container']}>
-          {modifiedBooks.map((book) => (
-            <BookCard key={uuid()} book={book} />
-          ))}
+          {modifiedBooks.length ? (
+            bookContainer
+          ) : (
+            <h1>No books were found 🙈</h1>
+          )}
         </div>
       </>
     );
   }
 
-  if (failureData) console.log(failureData.message);
-
-  return <div>Books</div>;
+  return (
+    <div>
+      <h1>Something went wrong: {failureData.message} 🙊</h1>
+    </div>
+  );
 }
 
 StorePage.propTypes = {
