@@ -27,6 +27,11 @@ function StorePage({ loadBooks, loading, loaded, books, failureData }) {
     if (!loading && !loaded) loadBooks(sessionUser);
   }, [loadBooks, loading, loaded, sessionUser]);
 
+  useEffect(() => {
+    if (Object.keys(books).length === 1 && !loading && loaded)
+      loadBooks(sessionUser);
+  }, [books, loadBooks, loading, loaded, sessionUser]);
+
   // set initial list of modified books
   useEffect(() => {
     if (!loading && loaded) setModifiedBooks(books);

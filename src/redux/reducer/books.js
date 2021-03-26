@@ -63,7 +63,7 @@ export default (state = initialState, action) => {
 
       return {
         ...state,
-        entities: { books: [data] },
+        entities: arrToMap([data]),
         loading: false,
         loaded: true,
       };
