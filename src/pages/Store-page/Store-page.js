@@ -28,9 +28,14 @@ function StorePage({ loadBooks, loading, loaded, books, failureData }) {
   }, [loadBooks, loading, loaded, sessionUser]);
 
   useEffect(() => {
-    if (Object.keys(books).length === 1 && !loading && loaded)
+    if (
+      Object.keys(books).length === 1 &&
+      !failureData.message &&
+      !loading &&
+      loaded
+    )
       loadBooks(sessionUser);
-  }, [books, loadBooks, loading, loaded, sessionUser]);
+  }, [books, loadBooks, loading, loaded, sessionUser, failureData]);
 
   // set initial list of modified books
   useEffect(() => {
@@ -39,13 +44,13 @@ function StorePage({ loadBooks, loading, loaded, books, failureData }) {
 
   // set searched books
   useEffect(() => {
-    if (books) {
+    if (books && !failureData.message) {
       const results = books.filter(({ title }) =>
         title.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setSearchResults(results);
     }
-  }, [books, searchTerm]);
+  }, [books, searchTerm, failureData]);
 
   // filter searched books
   const filterBooks = useCallback(
@@ -93,6 +98,14 @@ function StorePage({ loadBooks, loading, loaded, books, failureData }) {
 
   if (loading || !loaded) return <Loader />;
 
+  if (failureData.message) {
+    return (
+      <div>
+        <h1>Something went wrong: {failureData.message} 🙊</h1>
+      </div>
+    );
+  }
+
   if (loaded && books && modifiedBooks) {
     const bookContainer = modifiedBooks.map((book) => (
       <BookCard key={uuid()} book={book} />
@@ -127,14 +140,6 @@ function StorePage({ loadBooks, loading, loaded, books, failureData }) {
           )}
         </div>
       </>
-    );
-  }
-
-  if (failureData.message) {
-    return (
-      <div>
-        <h1>Something went wrong: {failureData.message} 🙊</h1>
-      </div>
     );
   }
 

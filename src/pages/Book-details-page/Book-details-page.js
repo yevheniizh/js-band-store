@@ -17,9 +17,17 @@ import {
   booksListSelector,
   booksLoadedSelector,
   booksLoadingSelector,
+  failureDataSelector,
 } from '../../redux/selectors';
 
-function BookDetailsPage({ books, match, loaded, loading, loadBook }) {
+function BookDetailsPage({
+  books,
+  match,
+  loaded,
+  loading,
+  loadBook,
+  failureData,
+}) {
   const { sessionUser } = useContext(userContext);
   const [book, setBook] = useState({});
   const { bookId } = match.params;
@@ -36,6 +44,14 @@ function BookDetailsPage({ books, match, loaded, loading, loadBook }) {
   }, [books, bookId, loading, loaded]);
 
   if (loading || !loaded) return <Loader />;
+
+  if (failureData.message) {
+    return (
+      <div>
+        <h1>Something went wrong: {failureData.message} 🙊</h1>
+      </div>
+    );
+  }
 
   return (
     <div className={styles['book-details-page']}>
@@ -67,7 +83,7 @@ function BookDetailsPage({ books, match, loaded, loading, loadBook }) {
         </div>
       </div>
       <div className={styles['book-details-page__form']}>
-        <OrderForm price={book.price} count={book.count} />
+        <OrderForm id={book.id} price={book.price} count={book.count} />
       </div>
     </div>
   );
@@ -93,6 +109,9 @@ BookDetailsPage.propTypes = {
       bookId: PropTypes.string,
     }),
   }).isRequired,
+  failureData: PropTypes.shape({
+    message: PropTypes.string,
+  }),
   loading: PropTypes.bool.isRequired,
   loaded: PropTypes.bool.isRequired,
   loadBook: PropTypes.func.isRequired,
@@ -101,6 +120,7 @@ BookDetailsPage.propTypes = {
 export default connect(
   (state) => ({
     books: booksListSelector(state),
+    failureData: failureDataSelector(state),
     loading: booksLoadingSelector(state),
     loaded: booksLoadedSelector(state),
   }),
