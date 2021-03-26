@@ -5,8 +5,8 @@ import Button from '../Button';
 
 import styles from './Order-form.module.scss';
 
-function OrderForm({ price, count }) {
-  const [selectedBooks, setSelectedBooks] = useState(1);
+function OrderForm({ id, price, count, addToCart }) {
+  const [selectedBooks, setSelectedBooks] = useState('1');
   const [isCountEnabled, setIsCountEnabled] = useState(false);
 
   useEffect(() => {
@@ -20,8 +20,9 @@ function OrderForm({ price, count }) {
     if (quantity >= 1 && quantity <= count) setSelectedBooks(quantity);
   };
 
-  const handleSubmit = () => {
-    console.log('Submit');
+  const handleSubmit = (ev) => {
+    ev.preventDefault();
+    addToCart(id, selectedBooks);
   };
 
   return (
@@ -63,6 +64,8 @@ function OrderForm({ price, count }) {
 }
 
 OrderForm.propTypes = {
+  id: PropTypes.string,
+  addToCart: PropTypes.func,
   count: PropTypes.number,
   price: PropTypes.number,
 };

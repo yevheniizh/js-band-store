@@ -7,6 +7,7 @@ import {
   REQUEST,
   SUCCESS,
   FAILURE,
+  ADD_TO_CART,
 } from './constants';
 
 const BACKEND_URL = 'https://js-band-store-api.glitch.me';
@@ -85,3 +86,8 @@ export const loadBook = (username, bookId) => async (dispatch) => {
     return dispatch({ type: LOAD_BOOK + FAILURE, error });
   }
 };
+
+export const addToCart = (id, quantity) => ({
+  type: ADD_TO_CART,
+  payload: { id, quantity },
+});

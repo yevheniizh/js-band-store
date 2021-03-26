@@ -9,7 +9,7 @@ import styles from './Book-details-page.module.scss';
 import { ReactComponent as Arrow } from './icons/Arrow-left.svg';
 import { ReactComponent as Tag } from './icons/Tag.svg';
 import { ReactComponent as Glasses } from './icons/Glasses.svg';
-import { loadBook } from '../../redux/actions';
+import { loadBook, addToCart } from '../../redux/actions';
 import { userContext } from '../../contexts/user-context';
 
 import Loader from '../../components/Loader';
@@ -26,6 +26,7 @@ function BookDetailsPage({
   loaded,
   loading,
   loadBook,
+  addToCart,
   failureData,
 }) {
   const { sessionUser } = useContext(userContext);
@@ -83,7 +84,12 @@ function BookDetailsPage({
         </div>
       </div>
       <div className={styles['book-details-page__form']}>
-        <OrderForm id={book.id} price={book.price} count={book.count} />
+        <OrderForm
+          id={book.id}
+          price={book.price}
+          count={book.count}
+          addToCart={addToCart}
+        />
       </div>
     </div>
   );
@@ -115,6 +121,7 @@ BookDetailsPage.propTypes = {
   loading: PropTypes.bool.isRequired,
   loaded: PropTypes.bool.isRequired,
   loadBook: PropTypes.func.isRequired,
+  addToCart: PropTypes.func.isRequired,
 };
 
 export default connect(
@@ -124,5 +131,5 @@ export default connect(
     loading: booksLoadingSelector(state),
     loaded: booksLoadedSelector(state),
   }),
-  { loadBook }
+  { loadBook, addToCart }
 )(BookDetailsPage);
