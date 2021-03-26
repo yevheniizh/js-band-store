@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Button from '../Button';
 
@@ -6,6 +6,12 @@ import styles from './Order-form.module.scss';
 
 function OrderForm({ price, count }) {
   const [selectedBooks, setSelectedBooks] = useState(1);
+  const [isCountEnabled, setIsCountEnabled] = useState(false);
+
+  useEffect(() => {
+    if (count === 0) return setIsCountEnabled(true);
+    return setIsCountEnabled(false);
+  }, [count]);
 
   const handleChange = (ev) => {
     const quantity = ev.target.value;
@@ -27,6 +33,7 @@ function OrderForm({ price, count }) {
       <div className={styles['order-form__order']}>
         <div>Order</div>
         <input
+          disabled={isCountEnabled}
           type="number"
           min="1"
           max={count}
@@ -44,7 +51,11 @@ function OrderForm({ price, count }) {
       </div>
 
       <div className={styles['order-form__button']}>
-        <Button type="submit" description="Add to Cart" />
+        <Button
+          disabled={isCountEnabled}
+          type="submit"
+          description="Add to Cart"
+        />
       </div>
     </form>
   );
