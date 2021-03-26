@@ -51,8 +51,15 @@
       "arrow-body-style": "off",
       "prefer-arrow-callback": "off",
       "import/no-anonymous-default-export": "off",
-      "react/jsx-filename-extension": "off",
       "import/extensions": "off",
+      "import/no-unresolved": [
+        2,
+        {
+          "caseSensitive": false
+        }
+      ],
+      "no-shadow": "off",
+      "react/jsx-filename-extension": "off",
       "func-names": "off",
       "no-param-reassign": "off",
       "spaced-comment": "off",
