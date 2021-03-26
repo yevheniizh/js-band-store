@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Button from '../Button';
@@ -62,8 +63,8 @@ function OrderForm({ price, count }) {
 }
 
 OrderForm.propTypes = {
-  count: PropTypes.number.isRequired,
-  price: PropTypes.number.isRequired,
+  count: PropTypes.number,
+  price: PropTypes.number,
 };
 
 export default OrderForm;

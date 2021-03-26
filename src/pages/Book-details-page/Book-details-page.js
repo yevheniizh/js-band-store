@@ -1,4 +1,6 @@
-import React from 'react';
+/* eslint-disable react/require-default-props */
+/* eslint-disable no-shadow */
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -8,11 +10,28 @@ import styles from './Book-details-page.module.scss';
 import { ReactComponent as Arrow } from './icons/Arrow-left.svg';
 import { ReactComponent as Tag } from './icons/Tag.svg';
 import { ReactComponent as Glasses } from './icons/Glasses.svg';
+import { loadBook } from '../../redux/actions';
+import { userContext } from '../../contexts/user-context';
 
-function BookDetailsPage({ books, match }) {
+import Loader from '../../components/Loader';
+
+function BookDetailsPage({ books, match, loaded, loading, loadBook }) {
+  const { sessionUser } = useContext(userContext);
+  const [book, setBook] = useState({});
   const { bookId } = match.params;
-  const book = books.find(({ id }) => id === bookId);
-  const { count, price, title, author, level, description, cover, tags } = book;
+
+  useEffect(() => {
+    if (!loading && !loaded) loadBook(sessionUser, bookId);
+  }, [loadBook, loading, loaded, sessionUser, bookId]);
+
+  useEffect(() => {
+    if (!loading && loaded) {
+      const getBook = books.find(({ id }) => id === bookId);
+      setBook(getBook);
+    }
+  }, [books, bookId, loading, loaded]);
+
+  if (loading || !loaded) return <Loader />;
 
   return (
     <div className={styles['book-details-page']}>
@@ -22,29 +41,29 @@ function BookDetailsPage({ books, match }) {
         </Link>
       </div>
       <div className={styles['book-details-page__cover']}>
-        <img src={cover} alt="Book cover" />
+        <img src={book.cover} alt="Book cover" />
       </div>
       <div className={styles['book-details-page__info']}>
         <div className={styles['book-details-page__title']}>
-          <h1>{title}</h1>
+          <h1>{book.title}</h1>
         </div>
         <div className={styles['book-details-page__author']}>
-          <h2>{author}</h2>
+          <h2>{book.author}</h2>
         </div>
         <div className={styles['book-details-page__description']}>
-          {description}
+          {book.description}
         </div>
         <div className={styles['book-details-page__level']}>
           <Glasses className={styles['book-details-page__level-icon']} />
-          {level}
+          {book.level}
         </div>
         <div className={styles['book-details-page__tags']}>
           <Tag className={styles['book-details-page__tags-icon']} />
-          {tags}
+          {book.tags}
         </div>
       </div>
       <div className={styles['book-details-page__form']}>
-        <OrderForm price={price} count={count} />
+        <OrderForm price={book.price} count={book.count} />
       </div>
     </div>
   );
@@ -63,16 +82,23 @@ BookDetailsPage.propTypes = {
       cover: PropTypes.string,
       tags: PropTypes.arrayOf(PropTypes.string),
     })
-  ).isRequired,
+  ),
+
   match: PropTypes.shape({
     params: PropTypes.shape({
       bookId: PropTypes.string,
     }),
   }).isRequired,
+  loading: PropTypes.bool.isRequired,
+  loaded: PropTypes.bool.isRequired,
+  loadBook: PropTypes.func.isRequired,
 };
 
-export default connect((state) => ({
-  books: state.books.entities.books,
-  loading: state.books.loading,
-  loaded: state.books.loaded,
-}))(BookDetailsPage);
+export default connect(
+  (state) => ({
+    books: state.books.entities.books,
+    loading: state.books.loading,
+    loaded: state.books.loaded,
+  }),
+  { loadBook }
+)(BookDetailsPage);
