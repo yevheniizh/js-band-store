@@ -4,20 +4,27 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Button.module.scss';
 
-const Button = ({ type, description, ...props }) => {
+const Button = ({ disabled, type, description, ...props }) => {
   return (
-    <button type={type} className={styles.button} {...props}>
+    <button
+      type={type}
+      disabled={disabled}
+      className={styles.button}
+      {...props}
+    >
       {description}
     </button>
   );
 };
 
 Button.propTypes = {
+  disabled: PropTypes.bool,
   type: PropTypes.string,
   description: PropTypes.string,
 };
 
 Button.defaultProps = {
+  disabled: false,
   type: 'button',
   description: 'button',
 };

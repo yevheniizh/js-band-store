@@ -1,6 +1,5 @@
 /* eslint-disable react/require-default-props */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable no-shadow */
 import React, { useContext, useEffect, useState, useCallback } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -10,6 +9,12 @@ import { userContext } from '../../contexts/user-context';
 import Loader from '../../components/Loader';
 import BookCard from '../../components/Book-card';
 import styles from './Store-page.module.scss';
+import {
+  booksListSelector,
+  booksLoadedSelector,
+  booksLoadingSelector,
+  failureDataSelector,
+} from '../../redux/selectors';
 
 function StorePage({ loadBooks, loading, loaded, books, failureData }) {
   const { sessionUser } = useContext(userContext);
@@ -21,6 +26,11 @@ function StorePage({ loadBooks, loading, loaded, books, failureData }) {
   useEffect(() => {
     if (!loading && !loaded) loadBooks(sessionUser);
   }, [loadBooks, loading, loaded, sessionUser]);
+
+  useEffect(() => {
+    if (Object.keys(books).length === 1 && !loading && loaded)
+      loadBooks(sessionUser);
+  }, [books, loadBooks, loading, loaded, sessionUser]);
 
   // set initial list of modified books
   useEffect(() => {
@@ -120,11 +130,15 @@ function StorePage({ loadBooks, loading, loaded, books, failureData }) {
     );
   }
 
-  return (
-    <div>
-      <h1>Something went wrong: {failureData.message} 🙊</h1>
-    </div>
-  );
+  if (failureData.message) {
+    return (
+      <div>
+        <h1>Something went wrong: {failureData.message} 🙊</h1>
+      </div>
+    );
+  }
+
+  return <Loader />;
 }
 
 StorePage.propTypes = {
@@ -151,10 +165,10 @@ StorePage.propTypes = {
 
 export default connect(
   (state) => ({
-    books: state.books.entities.books,
-    failureData: state.books.entities,
-    loading: state.books.loading,
-    loaded: state.books.loaded,
+    books: booksListSelector(state),
+    failureData: failureDataSelector(state),
+    loading: booksLoadingSelector(state),
+    loaded: booksLoadedSelector(state),
   }),
   { loadBooks }
 )(StorePage);

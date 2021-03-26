@@ -44,12 +44,17 @@
       font-weight: 700;
     }
 
+    a {
+      display: block;
+      width: 50%;
+    }
+
     button {
       background-color: var(--light-grey);
       border: 1px solid var(--blue);
       color: var(--blue);
       height: 2.5rem;
-      width: 50%;
+      width: 100%;
       cursor: pointer;
       border-radius: 0.25rem;
     }
@@ -60,11 +65,5 @@
       background-color: var(--blue);
       color: var(--white);
     }
-  }
-}
-
-@media screen and (max-width: 640px) {
-  .book-card {
-    width: 100%;
   }
 }

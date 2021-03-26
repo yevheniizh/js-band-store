@@ -1,6 +1,7 @@
 import {
   LOG_IN,
   SIGN_OUT,
+  LOAD_BOOK,
   LOAD_BOOKS,
   SET_EXISTED_SESSION_USER,
   REQUEST,
@@ -58,5 +59,29 @@ export const loadBooks = (username) => async (dispatch) => {
     return dispatch({ type: LOAD_BOOKS + SUCCESS, data });
   } catch (error) {
     return dispatch({ type: LOAD_BOOKS + FAILURE, error });
+  }
+};
+
+export const loadBook = (username, bookId) => async (dispatch) => {
+  dispatch({ type: LOAD_BOOK + REQUEST });
+
+  try {
+    const response = await fetch(`${BACKEND_URL}/books/${bookId}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${username.token}`,
+      },
+    });
+
+    if (response.status === 401) {
+      const failureData = await response.json();
+      return dispatch({ type: LOAD_BOOK + SUCCESS, failureData });
+    }
+
+    const data = await response.json();
+
+    return dispatch({ type: LOAD_BOOK + SUCCESS, data });
+  } catch (error) {
+    return dispatch({ type: LOAD_BOOK + FAILURE, error });
   }
 };

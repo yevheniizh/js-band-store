@@ -1,10 +1,13 @@
 import React from 'react';
+import { Link, useRouteMatch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from './Book-card.module.scss';
 import Button from '../Button';
 
 function BookCard({ book }) {
   const { id, price, title, author, cover } = book;
+
+  const match = useRouteMatch();
 
   return (
     <div data-id={id} className={styles['book-card']}>
@@ -19,7 +22,9 @@ function BookCard({ book }) {
       </div>
       <div className={styles['book-card__footer']}>
         <div className={styles['book-card__price']}>{price}$</div>
-        <Button description="View" />
+        <Link to={`${match.path}/${id}`}>
+          <Button description="View" />
+        </Link>
       </div>
     </div>
   );

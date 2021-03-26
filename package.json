@@ -17,6 +17,7 @@
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.3.0",
+    "reselect": "^4.0.0",
     "uuid": "^8.3.2",
     "web-vitals": "^1.0.1"
   },
@@ -51,8 +52,15 @@
       "arrow-body-style": "off",
       "prefer-arrow-callback": "off",
       "import/no-anonymous-default-export": "off",
-      "react/jsx-filename-extension": "off",
       "import/extensions": "off",
+      "import/no-unresolved": [
+        2,
+        {
+          "caseSensitive": false
+        }
+      ],
+      "no-shadow": "off",
+      "react/jsx-filename-extension": "off",
       "func-names": "off",
       "no-param-reassign": "off",
       "spaced-comment": "off",
