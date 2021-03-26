@@ -1,5 +1,4 @@
 /* eslint-disable react/require-default-props */
-/* eslint-disable no-shadow */
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -14,6 +13,11 @@ import { loadBook } from '../../redux/actions';
 import { userContext } from '../../contexts/user-context';
 
 import Loader from '../../components/Loader';
+import {
+  booksListSelector,
+  booksLoadedSelector,
+  booksLoadingSelector,
+} from '../../redux/selectors';
 
 function BookDetailsPage({ books, match, loaded, loading, loadBook }) {
   const { sessionUser } = useContext(userContext);
@@ -96,9 +100,9 @@ BookDetailsPage.propTypes = {
 
 export default connect(
   (state) => ({
-    books: state.books.entities.books,
-    loading: state.books.loading,
-    loaded: state.books.loaded,
+    books: booksListSelector(state),
+    loading: booksLoadingSelector(state),
+    loaded: booksLoadedSelector(state),
   }),
   { loadBook }
 )(BookDetailsPage);

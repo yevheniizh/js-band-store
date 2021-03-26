@@ -1,4 +1,3 @@
-/* eslint-disable no-shadow */
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';

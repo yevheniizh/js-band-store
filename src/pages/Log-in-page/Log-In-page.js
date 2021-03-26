@@ -1,10 +1,14 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable no-shadow */
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { userContext } from '../../contexts/user-context';
 import { loginResponse } from '../../redux/actions';
+import {
+  loginLoadedSelector,
+  loginLoadingSelector,
+  loginSelector,
+} from '../../redux/selectors';
 
 import Loader from '../../components/Loader';
 import Button from '../../components/Button';
@@ -81,9 +85,9 @@ LogInPage.propTypes = {
 
 export default connect(
   (state) => ({
-    login: state.login.entities,
-    loading: state.login.loading,
-    loaded: state.login.loaded,
+    login: loginSelector(state),
+    loading: loginLoadingSelector(state),
+    loaded: loginLoadedSelector(state),
   }),
   { loginResponse }
 )(LogInPage);

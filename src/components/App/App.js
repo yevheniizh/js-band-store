@@ -1,4 +1,3 @@
-/* eslint-disable no-shadow */
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -11,6 +10,7 @@ import NotFoundPage from '../../pages/Not-found-page';
 import Header from '../header/header';
 import StorePage from '../../pages/Store-page';
 import BookDetailsPage from '../../pages/Book-details-page/Book-details-page';
+import { loginLoadedSelector } from '../../redux/selectors';
 
 function App({ setExistedSessionUser, loaded }) {
   const existedSessionUser = JSON.parse(localStorage.getItem('sessionUser')); // null if user is not existed yet
@@ -67,7 +67,7 @@ App.propTypes = {
 
 export default connect(
   (state) => ({
-    loaded: state.login.loaded,
+    loaded: loginLoadedSelector(state),
   }),
   { setExistedSessionUser }
 )(App);

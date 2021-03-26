@@ -1,5 +1,7 @@
 import { LOAD_BOOK, LOAD_BOOKS, REQUEST, SUCCESS, FAILURE } from '../constants';
 
+import arrToMap from '../utils';
+
 const initialState = {
   entities: {},
   loading: false,
@@ -29,7 +31,7 @@ export default (state = initialState, action) => {
 
       return {
         ...state,
-        entities: { books: data },
+        entities: arrToMap(data),
         loading: false,
         loaded: true,
       };
