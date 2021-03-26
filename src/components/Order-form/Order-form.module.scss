@@ -45,3 +45,37 @@
     }
   }
 }
+
+@media screen and (max-width: 640px) {
+  .order-form {
+    padding: 1rem;
+
+    .order-form__button {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+
+      button {
+        width: 100%;
+        height: 2.5rem;
+        border-radius: 0.25rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 920px) {
+  .order-form {
+    .order-form__button {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+
+      button {
+        width: 100%;
+        height: 2.5rem;
+        border-radius: 0.25rem;
+      }
+    }
+  }
+}

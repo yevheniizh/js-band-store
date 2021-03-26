@@ -24,7 +24,7 @@
 
 .store-page-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 0.5fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 2rem;
   margin: 2rem;
 }
