@@ -40,7 +40,9 @@ function Header({ logOut }) {
           </div>
         </div>
         <div className={styles['header-user__cart']}>
-          <Cart /> (0)
+          <Link to="/js-band-store/cart">
+            <Cart /> (0)
+          </Link>
         </div>
       </nav>
     </header>
