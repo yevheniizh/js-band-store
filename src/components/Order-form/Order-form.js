@@ -86,7 +86,7 @@ OrderForm.propTypes = {
   appPage: PropTypes.string,
   item: PropTypes.shape({
     count: PropTypes.number,
-    subtotal: PropTypes.string,
+    subtotal: PropTypes.number,
     book: PropTypes.shape({
       id: PropTypes.string,
       count: PropTypes.number,

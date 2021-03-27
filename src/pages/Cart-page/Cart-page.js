@@ -12,6 +12,7 @@ import {
   orderBooksSelector,
   orderDataSelector,
   orderLoadingSelector,
+  totalSelector,
 } from '../../redux/selectors';
 import { makeOrder, addToCart } from '../../redux/actions';
 import { userContext } from '../../contexts/user-context';
@@ -19,10 +20,18 @@ import { userContext } from '../../contexts/user-context';
 import Loader from '../../components/Loader';
 import OrderForm from '../../components/Order-form/Order-form';
 
-function CartPage({ order, makeOrder, addToCart, loading, orderedBooks }) {
+function CartPage({
+  order,
+  makeOrder,
+  addToCart,
+  loading,
+  orderedBooks,
+  total,
+}) {
   const { sessionUser } = useContext(userContext);
   console.log('orderedBooks', orderedBooks);
   console.log('order', order);
+  console.log('total', total);
 
   const onSubmit = (ev) => {
     ev.preventDefault();
@@ -71,7 +80,12 @@ function CartPage({ order, makeOrder, addToCart, loading, orderedBooks }) {
                 );
               })}
             </div>
-            <div className={styles['cart-page__form-footer']}>Total price:</div>
+            <div className={styles['cart-page__form-footer']}>
+              <div className={styles['cart-page__total']}>Total price:</div>
+              <div className={styles['cart-page__total-price']}>
+                {total.toFixed(2)}$
+              </div>
+            </div>
           </div>
           <div className={styles['cart-page__button-container']}>
             <div className={styles['cart-page__submit-button']}>
@@ -97,6 +111,7 @@ CartPage.propTypes = {
   order: PropTypes.arrayOf(PropTypes.string),
   makeOrder: PropTypes.func,
   loading: PropTypes.bool,
+  total: PropTypes.number,
 };
 
 export default connect(
@@ -104,6 +119,7 @@ export default connect(
     order: orderDataSelector(state),
     loading: orderLoadingSelector(state),
     orderedBooks: orderBooksSelector(state),
+    total: totalSelector(state),
   }),
   { makeOrder, addToCart }
 )(CartPage);

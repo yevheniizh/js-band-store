@@ -36,6 +36,10 @@ export const orderBooksSelector = createSelector(
       .map((book) => ({
         book,
         count: order[book.id],
-        subtotal: (order[book.id] * book.price).toFixed(1),
+        subtotal: order[book.id] * book.price,
       }))
+);
+
+export const totalSelector = createSelector(orderBooksSelector, (orderBooks) =>
+  orderBooks.reduce((acc, { subtotal }) => acc + subtotal, 0)
 );
