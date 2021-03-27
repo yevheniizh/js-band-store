@@ -7,8 +7,8 @@ import OrderForm from '../../components/Order-form';
 import styles from './Book-details-page.module.scss';
 
 import { ReactComponent as Arrow } from './icons/Arrow-left.svg';
-import { ReactComponent as Tag } from './icons/Tag.svg';
-import { ReactComponent as Glasses } from './icons/Glasses.svg';
+import { ReactComponent as Tags } from './icons/Tags.svg';
+import { ReactComponent as Eyeglasses } from './icons/Eyeglasses.svg';
 import { loadBook, addToCart } from '../../redux/actions';
 import { userContext } from '../../contexts/user-context';
 
@@ -75,11 +75,11 @@ function BookDetailsPage({
           {book.description}
         </div>
         <div className={styles['book-details-page__level']}>
-          <Glasses className={styles['book-details-page__level-icon']} />
+          <Eyeglasses className={styles['book-details-page__level-icon']} />
           {book.level}
         </div>
         <div className={styles['book-details-page__tags']}>
-          <Tag className={styles['book-details-page__tags-icon']} />
+          <Tags className={styles['book-details-page__tags-icon']} />
           {book.tags}
         </div>
       </div>

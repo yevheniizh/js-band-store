@@ -48,7 +48,6 @@
         }
 
         button:hover,
-        button:focus,
         button:active {
           background-color: var(--white);
           box-shadow: none;
@@ -70,6 +69,17 @@
         justify-content: space-between;
         text-decoration: none;
         color: var(--black);
+
+        svg {
+          height: 1.5rem;
+          width: 1.5rem;
+          margin-right: 0.25rem;
+        }
+      }
+
+      a:hover,
+      a:active {
+        color: var(--blue);
       }
     }
   }
