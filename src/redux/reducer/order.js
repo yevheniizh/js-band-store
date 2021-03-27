@@ -4,6 +4,7 @@ import {
   REQUEST,
   SUCCESS,
   FAILURE,
+  SIGN_OUT,
 } from '../constants';
 
 const initialState = {
@@ -46,6 +47,13 @@ const reducer = (state = initialState, action) => {
         loading: false,
         loaded: false,
         error,
+      };
+
+    case SIGN_OUT:
+      return {
+        ...state,
+        entities: {},
+        loaded: false,
       };
     default:
       return state;
