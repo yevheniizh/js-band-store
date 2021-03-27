@@ -1,4 +1,10 @@
-import { ADD_TO_CART } from '../constants';
+import {
+  ADD_TO_CART,
+  MAKE_ORDER,
+  REQUEST,
+  SUCCESS,
+  FAILURE,
+} from '../constants';
 
 const initialState = {
   entities: {},
@@ -8,7 +14,7 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
-  const { type, payload } = action;
+  const { type, payload, error } = action;
 
   switch (type) {
     case ADD_TO_CART:
@@ -20,6 +26,27 @@ const reducer = (state = initialState, action) => {
         },
       };
 
+    case MAKE_ORDER + REQUEST:
+      return {
+        ...state,
+        loading: true,
+        loaded: false,
+        error: null,
+      };
+    case MAKE_ORDER + SUCCESS:
+      return {
+        ...state,
+        entities: {},
+        loading: false,
+        loaded: true,
+      };
+    case MAKE_ORDER + FAILURE:
+      return {
+        ...state,
+        loading: false,
+        loaded: false,
+        error,
+      };
     default:
       return state;
   }

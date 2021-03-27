@@ -8,7 +8,7 @@ import { userContext } from '../../contexts/user-context';
 import { logOut } from '../../redux/actions';
 
 import Button from '../Button';
-import { ReactComponent as Cart } from './icons/cart.svg';
+import { ReactComponent as Cart } from './icons/Cart.svg';
 import { orderDataSelector } from '../../redux/selectors';
 
 function Header({ logOut, order }) {
@@ -53,7 +53,7 @@ function Header({ logOut, order }) {
 
 Header.propTypes = {
   logOut: PropTypes.func.isRequired,
-  order: PropTypes.arrayOf(PropTypes.object),
+  order: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default connect(

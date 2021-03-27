@@ -6,7 +6,7 @@ import Button from '../Button';
 import styles from './Order-form.module.scss';
 
 function OrderForm({ id, price, count, addToCart }) {
-  const [selectedBooks, setSelectedBooks] = useState('1');
+  const [selectedBooks, setSelectedBooks] = useState(1);
   const [isCountEnabled, setIsCountEnabled] = useState(false);
 
   useEffect(() => {
@@ -15,7 +15,7 @@ function OrderForm({ id, price, count, addToCart }) {
   }, [count]);
 
   const handleChange = (ev) => {
-    const quantity = ev.target.value;
+    const quantity = parseInt(ev.target.value, 10);
 
     if (quantity >= 1 && quantity <= count) setSelectedBooks(quantity);
   };
@@ -37,7 +37,7 @@ function OrderForm({ id, price, count, addToCart }) {
         <input
           disabled={isCountEnabled}
           type="number"
-          min="1"
+          min={1}
           max={count}
           onChange={handleChange}
           defaultValue={selectedBooks}

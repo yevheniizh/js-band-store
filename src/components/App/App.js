@@ -10,6 +10,7 @@ import NotFoundPage from '../../pages/Not-found-page';
 import Header from '../header/header';
 import StorePage from '../../pages/Store-page';
 import BookDetailsPage from '../../pages/Book-details-page';
+import CartPage from '../../pages/Cart-page';
 import { loginLoadedSelector } from '../../redux/selectors';
 
 function App({ setExistedSessionUser, loaded }) {
@@ -35,11 +36,7 @@ function App({ setExistedSessionUser, loaded }) {
               path="/js-band-store/not-found"
               component={NotFoundPage}
             />
-            <Route
-              path="/js-band-store/cart"
-              exact
-              component={() => <div>CartPage</div>}
-            />
+            <Route path="/js-band-store/cart" exact component={CartPage} />
             <Route
               path="/js-band-store/:bookId"
               exact

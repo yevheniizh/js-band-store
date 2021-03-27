@@ -11,6 +11,11 @@ export const booksLoadingSelector = (state) => state.books.loading;
 export const booksLoadedSelector = (state) => state.books.loaded;
 
 const orderSelector = (state) => state.order.entities;
+export const orderLoadingSelector = (state) => state.order.loading;
+export const orderLoadedSelector = (state) => state.order.loaded;
 export const orderDataSelector = createSelector(orderSelector, (order) =>
-  Object.entries(order).map(([id, amount]) => ({ id, amount }))
+  Object.entries(order).reduce((acc, [id, amount]) => {
+    const subArr = [...Array(amount)].fill(id);
+    return [...acc, ...subArr];
+  }, [])
 );
