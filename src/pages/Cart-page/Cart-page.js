@@ -11,7 +11,6 @@ import { ReactComponent as Cart } from './icons/Cart.svg';
 import {
   orderBooksSelector,
   orderDataSelector,
-  orderLoadedSelector,
   orderLoadingSelector,
 } from '../../redux/selectors';
 import { makeOrder, addToCart } from '../../redux/actions';
@@ -20,25 +19,23 @@ import { userContext } from '../../contexts/user-context';
 import Loader from '../../components/Loader';
 import OrderForm from '../../components/Order-form/Order-form';
 
-function CartPage({
-  order,
-  makeOrder,
-  addToCart,
-  loading,
-  loaded,
-  orderedBooks,
-}) {
+function CartPage({ order, makeOrder, addToCart, loading, orderedBooks }) {
   const { sessionUser } = useContext(userContext);
+  console.log('orderedBooks', orderedBooks);
+  console.log('order', order);
 
   const onSubmit = (ev) => {
     ev.preventDefault();
     if (order.length) makeOrder(sessionUser, order);
   };
 
-  if (loading && !loaded) return <Loader />;
-
   return (
     <div className={styles['cart-page']}>
+      {loading && (
+        <div className={styles.loading}>
+          <Loader />
+        </div>
+      )}
       <div className={styles['cart-page__header']}>
         <h1 className={styles['cart-page__title']}>Cart</h1>
         <div className={styles['cart-page__items-quantity']}>
@@ -89,14 +86,12 @@ CartPage.propTypes = {
   order: PropTypes.arrayOf(PropTypes.string),
   makeOrder: PropTypes.func,
   loading: PropTypes.bool,
-  loaded: PropTypes.bool,
 };
 
 export default connect(
   (state) => ({
     order: orderDataSelector(state),
     loading: orderLoadingSelector(state),
-    loaded: orderLoadedSelector(state),
     orderedBooks: orderBooksSelector(state),
   }),
   { makeOrder, addToCart }
