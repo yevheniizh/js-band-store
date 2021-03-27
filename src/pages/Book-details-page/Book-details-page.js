@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/require-default-props */
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
@@ -18,6 +19,7 @@ import {
   booksLoadedSelector,
   booksLoadingSelector,
   failureDataSelector,
+  orderBooksSelector,
 } from '../../redux/selectors';
 
 function BookDetailsPage({
@@ -28,10 +30,12 @@ function BookDetailsPage({
   loadBook,
   addToCart,
   failureData,
+  orderedBooks,
 }) {
   const { sessionUser } = useContext(userContext);
   const [book, setBook] = useState({});
   const { bookId } = match.params;
+  console.log(orderedBooks);
 
   useEffect(() => {
     if (!loading && !loaded) loadBook(sessionUser, bookId);
@@ -83,14 +87,19 @@ function BookDetailsPage({
           {book.tags}
         </div>
       </div>
-      <div className={styles['book-details-page__form']}>
-        <OrderForm
-          id={book.id}
-          price={book.price}
-          count={book.count}
-          addToCart={addToCart}
-        />
-      </div>
+
+      {orderedBooks && orderedBooks.find(({ book }) => book.id === bookId) ? (
+        <div className={styles['book-details-page__form']}>
+          <OrderForm
+            item={orderedBooks.find(({ book }) => book.id === bookId)}
+            addToCart={addToCart}
+          />
+        </div>
+      ) : (
+        <div className={styles['book-details-page__form']}>
+          <OrderForm item={{ book }} addToCart={addToCart} />
+        </div>
+      )}
     </div>
   );
 }
@@ -130,6 +139,7 @@ export default connect(
     failureData: failureDataSelector(state),
     loading: booksLoadingSelector(state),
     loaded: booksLoadedSelector(state),
+    orderedBooks: orderBooksSelector(state),
   }),
   { loadBook, addToCart }
 )(BookDetailsPage);

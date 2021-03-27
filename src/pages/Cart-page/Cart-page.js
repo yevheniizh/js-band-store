@@ -1,22 +1,33 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/require-default-props */
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { v4 as uuid } from 'uuid';
 import Button from '../../components/Button';
 import styles from './Cart-page.module.scss';
 
 import { ReactComponent as Cart } from './icons/Cart.svg';
 import {
+  orderBooksSelector,
   orderDataSelector,
   orderLoadedSelector,
   orderLoadingSelector,
 } from '../../redux/selectors';
-import { makeOrder } from '../../redux/actions';
+import { makeOrder, addToCart } from '../../redux/actions';
 import { userContext } from '../../contexts/user-context';
 
 import Loader from '../../components/Loader';
+import OrderForm from '../../components/Order-form/Order-form';
 
-function CartPage({ order, makeOrder, loading, loaded }) {
+function CartPage({
+  order,
+  makeOrder,
+  addToCart,
+  loading,
+  loaded,
+  orderedBooks,
+}) {
   const { sessionUser } = useContext(userContext);
 
   const onSubmit = (ev) => {
@@ -36,14 +47,29 @@ function CartPage({ order, makeOrder, loading, loaded }) {
       </div>
       {order.length ? (
         <div className={styles['cart-page__body_full']}>
-          <form className={styles['cart-page__form']} onSubmit={onSubmit}>
-            <div className={styles['cart-page__form-body']}>Form order</div>
+          <div className={styles['cart-page__form']}>
+            <div className={styles['cart-page__form-body']}>
+              {orderedBooks.map((item) => {
+                return (
+                  <OrderForm
+                    key={uuid()}
+                    appPage="Cart"
+                    item={item}
+                    addToCart={addToCart}
+                  />
+                );
+              })}
+            </div>
             <div className={styles['cart-page__form-footer']}>
               <div className={styles['cart-page__button']}>
-                <Button type="submit" description="Purchase" />
+                <Button
+                  type="submit"
+                  description="Purchase"
+                  onClick={onSubmit}
+                />
               </div>
             </div>
-          </form>
+          </div>
         </div>
       ) : (
         <div className={styles['cart-page__body_empty']}>
@@ -71,6 +97,7 @@ export default connect(
     order: orderDataSelector(state),
     loading: orderLoadingSelector(state),
     loaded: orderLoadedSelector(state),
+    orderedBooks: orderBooksSelector(state),
   }),
-  { makeOrder }
+  { makeOrder, addToCart }
 )(CartPage);

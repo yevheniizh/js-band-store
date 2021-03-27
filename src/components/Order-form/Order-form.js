@@ -1,44 +1,44 @@
 /* eslint-disable react/require-default-props */
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Button from '../Button';
-
 import styles from './Order-form.module.scss';
 
-function OrderForm({ id, price, count, addToCart }) {
-  const [selectedBooks, setSelectedBooks] = useState(1);
-  const [isCountEnabled, setIsCountEnabled] = useState(false);
+function OrderForm({ addToCart, appPage, item }) {
+  const [selectedBooks, setSelectedBooks] = useState(item.count || 1);
+  const [isCountDisabled, setIsCountDisabled] = useState(false);
+  const { book } = item;
 
   useEffect(() => {
-    if (count === 0) return setIsCountEnabled(true);
-    return setIsCountEnabled(false);
-  }, [count]);
+    if (item.count === 0) return setIsCountDisabled(true);
+    return setIsCountDisabled(false);
+  }, [item.count]);
 
   const handleChange = (ev) => {
     const quantity = parseInt(ev.target.value, 10);
-
-    if (quantity >= 1 && quantity <= count) setSelectedBooks(quantity);
+    if (quantity >= 1 && quantity <= book.count) setSelectedBooks(quantity);
   };
 
   const handleSubmit = (ev) => {
     ev.preventDefault();
-    addToCart(id, selectedBooks);
+    addToCart(book.id, selectedBooks);
   };
 
-  return (
-    <form onSubmit={handleSubmit} className={styles['order-form']}>
+  const formContainer = (
+    <>
       <div className={styles['order-form__price']}>
         <div>Price</div>
-        <div className={styles['order-form__price-count']}>{price}</div>
+        <div className={styles['order-form__price-count']}>{book.price}$</div>
       </div>
 
       <div className={styles['order-form__order']}>
-        <div>Order</div>
+        <div>Count</div>
         <input
-          disabled={isCountEnabled}
+          disabled={isCountDisabled}
           type="number"
           min={1}
-          max={count}
+          max={book.count}
           onChange={handleChange}
           defaultValue={selectedBooks}
           className={styles['order-form__order-count']}
@@ -48,13 +48,32 @@ function OrderForm({ id, price, count, addToCart }) {
       <div className={styles['order-form__total']}>
         <div>Total</div>
         <div className={styles['order-form__total-count']}>
-          {(selectedBooks * price).toFixed(2)}$
+          {(selectedBooks * book.price).toFixed(2)}$
         </div>
       </div>
+    </>
+  );
 
+  if (appPage === 'Cart') {
+    return (
+      <form onSubmit={handleSubmit} className={styles['order-form']}>
+        <div className={styles['order-form__title']}>
+          <div>Name</div>
+          <div className={styles['order-form__title-count']}>
+            <Link to={`/js-band-store/${book.id}`}>{book.title}</Link>
+          </div>
+        </div>
+        {formContainer}
+      </form>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className={styles['order-form']}>
+      {formContainer}
       <div className={styles['order-form__button']}>
         <Button
-          disabled={isCountEnabled}
+          disabled={isCountDisabled}
           type="submit"
           description="Add to Cart"
         />
@@ -64,10 +83,23 @@ function OrderForm({ id, price, count, addToCart }) {
 }
 
 OrderForm.propTypes = {
-  id: PropTypes.string,
   addToCart: PropTypes.func,
-  count: PropTypes.number,
-  price: PropTypes.number,
+  appPage: PropTypes.string,
+  item: PropTypes.shape({
+    count: PropTypes.number,
+    subtotal: PropTypes.string,
+    book: PropTypes.shape({
+      id: PropTypes.string,
+      count: PropTypes.number,
+      price: PropTypes.number,
+      title: PropTypes.string,
+      author: PropTypes.string,
+      level: PropTypes.string,
+      description: PropTypes.string,
+      cover: PropTypes.string,
+      tags: PropTypes.arrayOf(PropTypes.string),
+    }),
+  }),
 };
 
 export default OrderForm;
