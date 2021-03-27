@@ -25,15 +25,18 @@ function OrderForm({ addToCart, appPage, item }) {
     addToCart(book.id, selectedBooks);
   };
 
-  const formContainer = (
-    <>
-      <div className={styles['order-form__price']}>
-        <div>Price</div>
-        <div className={styles['order-form__price-count']}>{book.price}$</div>
-      </div>
+  const formContainerDescriptors = (
+    <div className={styles['order-form__descriptors']}>
+      <div className={styles['order-form__price-descriptor']}>Price</div>
+      <div className={styles['order-form__count-descriptor']}>Count</div>
+      <div className={styles['order-form__total-descriptor']}>Total</div>
+    </div>
+  );
 
-      <div className={styles['order-form__order']}>
-        <div>Count</div>
+  const formContainer = (
+    <div className={styles['order-form__container']}>
+      <div className={styles['order-form__price']}>{book.price}$</div>
+      <div className={styles['order-form__count']}>
         <input
           disabled={isCountDisabled}
           type="number"
@@ -41,27 +44,20 @@ function OrderForm({ addToCart, appPage, item }) {
           max={book.count}
           onChange={handleChange}
           defaultValue={selectedBooks}
-          className={styles['order-form__order-count']}
+          className={styles['order-form__count-input']}
         />
       </div>
-
       <div className={styles['order-form__total']}>
-        <div>Total</div>
-        <div className={styles['order-form__total-count']}>
-          {(selectedBooks * book.price).toFixed(2)}$
-        </div>
+        {(selectedBooks * book.price).toFixed(2)}$
       </div>
-    </>
+    </div>
   );
 
   if (appPage === 'Cart') {
     return (
-      <form onSubmit={handleSubmit} className={styles['order-form']}>
+      <form onSubmit={handleSubmit} className={styles['order-form-cart']}>
         <div className={styles['order-form__title']}>
-          <div>Name</div>
-          <div className={styles['order-form__title-count']}>
-            <Link to={`/js-band-store/${book.id}`}>{book.title}</Link>
-          </div>
+          <Link to={`/js-band-store/${book.id}`}>{book.title}</Link>
         </div>
         {formContainer}
       </form>
@@ -70,7 +66,10 @@ function OrderForm({ addToCart, appPage, item }) {
 
   return (
     <form onSubmit={handleSubmit} className={styles['order-form']}>
-      {formContainer}
+      <div className={styles['order-form__body']}>
+        {formContainerDescriptors}
+        {formContainer}
+      </div>
       <div className={styles['order-form__button']}>
         <Button
           disabled={isCountDisabled}

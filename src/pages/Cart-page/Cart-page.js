@@ -45,6 +45,20 @@ function CartPage({ order, makeOrder, addToCart, loading, orderedBooks }) {
       {order.length ? (
         <div className={styles['cart-page__body_full']}>
           <div className={styles['cart-page__form']}>
+            <div className={styles['cart-page__form-header']}>
+              <div className={styles['cart-page__form-header-name']}>Name</div>
+              <div className={styles['cart-page__form-header-item']}>
+                <div className={styles['cart-page__form-header-price']}>
+                  Price
+                </div>
+                <div className={styles['cart-page__form-header-count']}>
+                  Count
+                </div>
+                <div className={styles['cart-page__form-header-total']}>
+                  Total
+                </div>
+              </div>
+            </div>
             <div className={styles['cart-page__form-body']}>
               {orderedBooks.map((item) => {
                 return (
@@ -57,14 +71,11 @@ function CartPage({ order, makeOrder, addToCart, loading, orderedBooks }) {
                 );
               })}
             </div>
-            <div className={styles['cart-page__form-footer']}>
-              <div className={styles['cart-page__button']}>
-                <Button
-                  type="submit"
-                  description="Purchase"
-                  onClick={onSubmit}
-                />
-              </div>
+            <div className={styles['cart-page__form-footer']}>Total price:</div>
+          </div>
+          <div className={styles['cart-page__button-container']}>
+            <div className={styles['cart-page__submit-button']}>
+              <Button type="submit" description="Purchase" onClick={onSubmit} />
             </div>
           </div>
         </div>
