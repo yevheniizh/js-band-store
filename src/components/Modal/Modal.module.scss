@@ -40,7 +40,7 @@
     .modal-status svg {
       height: 4rem;
       width: 4rem;
-      color: rgb(118, 191, 138);
+      color: var(--green);
       margin-bottom: 1rem;
     }
 
@@ -53,6 +53,9 @@
       cursor: pointer;
       padding: 1rem;
       margin: -1rem -1rem -1rem auto;
+      font-size: 1.5rem;
+      border: none;
+      outline: none;
     }
   }
 

@@ -37,6 +37,10 @@ function CartPage({ order, loading, loaded, message, makeOrder, clearCart }) {
   const onCloseModal = () => {
     clearCart(); // clear message from order store
     setIsShowModal(false);
+  };
+
+  const onAccept = () => {
+    onCloseModal();
     setRedirctTo(true);
   };
 
@@ -63,6 +67,7 @@ function CartPage({ order, loading, loaded, message, makeOrder, clearCart }) {
         <div className={styles.loading}>
           <Modal
             onCloseModal={onCloseModal}
+            onAccept={onAccept}
             message={message}
             body={<Order modal />}
           />
