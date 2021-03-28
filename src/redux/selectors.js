@@ -13,6 +13,7 @@ export const booksLoadedSelector = (state) => state.books.loaded;
 const orderSelector = (state) => state.order.entities;
 export const orderLoadingSelector = (state) => state.order.loading;
 export const orderLoadedSelector = (state) => state.order.loaded;
+export const orderMessageSelector = (state) => state.order.message;
 
 // order data for fetching purchase
 export const orderDataSelector = createSelector(orderSelector, (order) =>

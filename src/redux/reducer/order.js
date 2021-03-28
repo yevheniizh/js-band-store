@@ -5,6 +5,7 @@ import {
   SUCCESS,
   FAILURE,
   SIGN_OUT,
+  CLEAR_CART,
 } from '../constants';
 
 const initialState = {
@@ -12,10 +13,11 @@ const initialState = {
   loading: false,
   loaded: false,
   error: null,
+  message: {},
 };
 
 const reducer = (state = initialState, action) => {
-  const { type, payload, error } = action;
+  const { type, data, payload, error } = action;
 
   switch (type) {
     case ADD_TO_CART:
@@ -40,6 +42,7 @@ const reducer = (state = initialState, action) => {
         entities: {},
         loading: false,
         loaded: true,
+        message: data,
       };
     case MAKE_ORDER + FAILURE:
       return {
@@ -49,6 +52,12 @@ const reducer = (state = initialState, action) => {
         error,
       };
 
+    case CLEAR_CART:
+      return {
+        ...state,
+        message: {},
+        loaded: false,
+      };
     case SIGN_OUT:
       return {
         ...state,

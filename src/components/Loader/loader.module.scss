@@ -2,7 +2,6 @@
   height: 40px;
   margin: 100px auto;
   position: relative;
-  top: 50%;
   width: 40px;
 
   .bounce1,
@@ -11,11 +10,11 @@
     background-color: var(--blue);
     border-radius: 50%;
     height: 100%;
-    // left: 0;
+    width: 100%;
     opacity: 0.9;
     position: absolute;
-    // top: 0;
-    width: 100%;
+    top: 0;
+    left: 0;
   }
 
   .bounce2 {

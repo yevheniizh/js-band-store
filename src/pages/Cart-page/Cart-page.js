@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/require-default-props */
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 import Button from '../../components/Button';
 import styles from './Cart-page.module.scss';
@@ -11,32 +12,51 @@ import { ReactComponent as Cart } from './icons/Cart.svg';
 import {
   orderBooksSelector,
   orderDataSelector,
+  orderLoadedSelector,
   orderLoadingSelector,
+  orderMessageSelector,
   totalSelector,
 } from '../../redux/selectors';
-import { makeOrder, addToCart } from '../../redux/actions';
+import { makeOrder, addToCart, clearCart } from '../../redux/actions';
 import { userContext } from '../../contexts/user-context';
 
 import Loader from '../../components/Loader';
 import OrderForm from '../../components/Order-form/Order-form';
+import Modal from '../../components/Modal';
 
 function CartPage({
   order,
   makeOrder,
   addToCart,
   loading,
+  loaded,
   orderedBooks,
   total,
+  message,
+  clearCart,
 }) {
   const { sessionUser } = useContext(userContext);
-  console.log('orderedBooks', orderedBooks);
-  console.log('order', order);
-  console.log('total', total);
+  const [isShowModal, setIsShowModal] = useState(false);
+  const [redirctTo, setRedirctTo] = useState(false);
+
+  useEffect(() => {
+    if (message) setIsShowModal(true);
+  }, [message, loaded]);
 
   const onSubmit = (ev) => {
     ev.preventDefault();
     if (order.length) makeOrder(sessionUser, order);
   };
+
+  const onCloseModal = () => {
+    clearCart(); // clear message from order store
+    setIsShowModal(false);
+    setRedirctTo(true);
+  };
+
+  if (redirctTo) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <div className={styles['cart-page']}>
@@ -45,13 +65,19 @@ function CartPage({
           <Loader />
         </div>
       )}
+      {loaded && isShowModal && (
+        <div className={styles.loading}>
+          <Modal onCloseModal={onCloseModal} message={message} />
+        </div>
+      )}
       <div className={styles['cart-page__header']}>
         <h1 className={styles['cart-page__title']}>Cart</h1>
         <div className={styles['cart-page__items-quantity']}>
           {order.length} items
         </div>
       </div>
-      {order.length ? (
+
+      {order.length && !message ? (
         <div className={styles['cart-page__body_full']}>
           <div className={styles['cart-page__form']}>
             <div className={styles['cart-page__form-header']}>
@@ -111,15 +137,18 @@ CartPage.propTypes = {
   order: PropTypes.arrayOf(PropTypes.string),
   makeOrder: PropTypes.func,
   loading: PropTypes.bool,
+  loaded: PropTypes.bool,
   total: PropTypes.number,
 };
 
 export default connect(
   (state) => ({
     order: orderDataSelector(state),
+    message: orderMessageSelector(state).message,
     loading: orderLoadingSelector(state),
+    loaded: orderLoadedSelector(state),
     orderedBooks: orderBooksSelector(state),
     total: totalSelector(state),
   }),
-  { makeOrder, addToCart }
+  { makeOrder, addToCart, clearCart }
 )(CartPage);
