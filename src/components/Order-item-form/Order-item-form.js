@@ -6,7 +6,7 @@ import Button from '../Button';
 import styles from './Order-item-form.module.scss';
 import OrderItem from './Order-item';
 
-function OrderItemForm({ addToCart, appPage, item }) {
+function OrderItemForm({ addToCart, appPage, item, modal }) {
   const [selectedBooks, setSelectedBooks] = useState(item.count || 0);
   const [isBookDisabled, setIsBookDisabled] = useState(false);
   const { book } = item;
@@ -30,6 +30,7 @@ function OrderItemForm({ addToCart, appPage, item }) {
         </div>
         <div className={styles['order-item-form__container']}>
           <OrderItem
+            modal={modal}
             item={item}
             setSelectedBooks={setSelectedBooks}
             selectedBooks={selectedBooks}
@@ -81,6 +82,7 @@ function OrderItemForm({ addToCart, appPage, item }) {
 }
 
 OrderItemForm.propTypes = {
+  modal: PropTypes.bool,
   addToCart: PropTypes.func,
   appPage: PropTypes.string,
   item: PropTypes.shape({

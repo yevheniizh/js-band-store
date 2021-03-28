@@ -64,7 +64,7 @@ function CartPage({ order, loading, loaded, message, makeOrder, clearCart }) {
           <Modal
             onCloseModal={onCloseModal}
             message={message}
-            body={<Order />}
+            body={<Order modal />}
           />
         </div>
       )}

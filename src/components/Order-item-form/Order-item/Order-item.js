@@ -4,7 +4,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Order-item.module.scss';
 
-function OrderItem({ item, selectedBooks, setSelectedBooks, isBookDisabled }) {
+function OrderItem({
+  item,
+  selectedBooks,
+  setSelectedBooks,
+  isBookDisabled,
+  modal,
+}) {
   const { book } = item;
 
   const handleChange = (ev) => {
@@ -16,15 +22,19 @@ function OrderItem({ item, selectedBooks, setSelectedBooks, isBookDisabled }) {
     <>
       <div className={styles['order-form__price']}>{book.price}$</div>
       <div className={styles['order-form__count']}>
-        <input
-          disabled={isBookDisabled}
-          type="number"
-          min={0}
-          max={book.count}
-          onChange={handleChange}
-          defaultValue={selectedBooks}
-          className={styles['order-form__count-input']}
-        />
+        {modal && <span>{selectedBooks}</span>}
+
+        {!modal && (
+          <input
+            disabled={isBookDisabled}
+            type="number"
+            min={0}
+            max={book.count}
+            onChange={handleChange}
+            defaultValue={selectedBooks}
+            className={styles['order-form__count-input']}
+          />
+        )}
       </div>
       <div className={styles['order-form__total']}>
         {(selectedBooks * book.price).toFixed(2)}$
@@ -34,6 +44,7 @@ function OrderItem({ item, selectedBooks, setSelectedBooks, isBookDisabled }) {
 }
 
 OrderItem.propTypes = {
+  modal: PropTypes.bool,
   item: PropTypes.shape({
     count: PropTypes.number,
     subtotal: PropTypes.number,

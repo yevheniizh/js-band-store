@@ -10,7 +10,7 @@ import OrderItemForm from '../Order-item-form';
 import { orderBooksSelector, totalSelector } from '../../redux/selectors';
 import { addToCart } from '../../redux/actions';
 
-function Order({ orderedBooks, addToCart, total }) {
+function Order({ orderedBooks, addToCart, total, modal }) {
   return (
     <div className={styles.order}>
       <div className={styles.order__header}>
@@ -25,6 +25,7 @@ function Order({ orderedBooks, addToCart, total }) {
         {orderedBooks.map((item) => {
           return (
             <OrderItemForm
+              modal={modal}
               key={uuid()}
               appPage="Cart"
               item={item}
@@ -42,6 +43,7 @@ function Order({ orderedBooks, addToCart, total }) {
 }
 
 Order.propTypes = {
+  modal: PropTypes.bool,
   addToCart: PropTypes.func,
   total: PropTypes.number,
   orderedBooks: PropTypes.arrayOf(
