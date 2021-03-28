@@ -54,6 +54,12 @@ function App({ setExistedSessionUser, loaded }) {
       <Switch>
         <Route exact path="/js-band-store/login" component={LogInPage} />
         <Route exact path="/js-band-store/not-found" component={NotFoundPage} />
+        <Redirect
+          exact
+          from="/js-band-store/:restId"
+          to="/js-band-store/login"
+        />
+        <Redirect exact from="/js-band-store/cart" to="/js-band-store/login" />
         <Redirect exact from="/js-band-store" to="/js-band-store/login" />
         <Redirect exact from="/" to="/js-band-store/login" />
         <Redirect to="/js-band-store/not-found" />
