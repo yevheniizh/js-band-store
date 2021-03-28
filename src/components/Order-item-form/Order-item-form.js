@@ -7,14 +7,15 @@ import styles from './Order-item-form.module.scss';
 import OrderItem from './Order-item';
 
 function OrderItemForm({ addToCart, appPage, item }) {
-  const [selectedBooks, setSelectedBooks] = useState(item.count || 1);
+  const [selectedBooks, setSelectedBooks] = useState(item.count || 0);
   const [isBookDisabled, setIsBookDisabled] = useState(false);
   const { book } = item;
 
   useEffect(() => {
-    if (item.count === 0) return setIsBookDisabled(true);
+    if (book.count === 0) return setIsBookDisabled(true);
+
     return setIsBookDisabled(false);
-  }, [item.count]);
+  }, [book]);
 
   const handleSubmit = (ev) => {
     ev.preventDefault();
@@ -31,7 +32,7 @@ function OrderItemForm({ addToCart, appPage, item }) {
           item={item}
           setSelectedBooks={setSelectedBooks}
           selectedBooks={selectedBooks}
-          isBookDisabled
+          isBookDisabled={isBookDisabled}
         />
       </form>
     );
@@ -50,7 +51,7 @@ function OrderItemForm({ addToCart, appPage, item }) {
           item={item}
           setSelectedBooks={setSelectedBooks}
           selectedBooks={selectedBooks}
-          isBookDisabled
+          isBookDisabled={isBookDisabled}
         />
       </div>
       <div className={styles['order-form__button']}>

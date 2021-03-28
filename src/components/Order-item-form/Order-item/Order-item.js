@@ -9,7 +9,7 @@ function OrderItem({ item, selectedBooks, setSelectedBooks, isBookDisabled }) {
 
   const handleChange = (ev) => {
     const quantity = parseInt(ev.target.value, 10);
-    if (quantity >= 1 && quantity <= book.count) setSelectedBooks(quantity);
+    if (quantity >= 0 && quantity <= book.count) setSelectedBooks(quantity);
   };
 
   return (
@@ -19,7 +19,7 @@ function OrderItem({ item, selectedBooks, setSelectedBooks, isBookDisabled }) {
         <input
           disabled={isBookDisabled}
           type="number"
-          min={1}
+          min={0}
           max={book.count}
           onChange={handleChange}
           defaultValue={selectedBooks}

@@ -39,7 +39,6 @@ const reducer = (state = initialState, action) => {
     case MAKE_ORDER + SUCCESS:
       return {
         ...state,
-        entities: {},
         loading: false,
         loaded: true,
         message: data,
@@ -55,6 +54,7 @@ const reducer = (state = initialState, action) => {
     case CLEAR_CART:
       return {
         ...state,
+        entities: {},
         message: {},
         loaded: false,
       };

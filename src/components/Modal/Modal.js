@@ -5,7 +5,7 @@ import styles from './Modal.module.scss';
 import Button from '../Button';
 import { ReactComponent as CheckCircle } from './icons/Check-circle.svg';
 
-function Modal({ onCloseModal, message }) {
+function Modal({ onCloseModal, message, body }) {
   return (
     <div className={styles.modal}>
       <div className={styles['modal-dialog']}>
@@ -17,7 +17,7 @@ function Modal({ onCloseModal, message }) {
           </div>
         </div>
         <div className={styles['modal-body']}>
-          <div className={styles['modal-content']}>Body</div>
+          <div className={styles['modal-content']}>{body}</div>
         </div>
         <div className={styles['modal-footer']}>
           <div className={styles['modal__submit-button']}>
@@ -36,6 +36,7 @@ function Modal({ onCloseModal, message }) {
 }
 
 Modal.propTypes = {
+  body: PropTypes.element,
   message: PropTypes.string,
   onCloseModal: PropTypes.func,
 };
