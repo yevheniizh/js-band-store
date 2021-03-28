@@ -24,37 +24,52 @@ function OrderItemForm({ addToCart, appPage, item }) {
 
   if (appPage === 'Cart') {
     return (
-      <form onSubmit={handleSubmit} className={styles['order-form-cart']}>
-        <div className={styles['order-form__title']}>
+      <form onSubmit={handleSubmit} className={styles['order-item-form-cart']}>
+        <div className={styles['order-item-form__title']}>
           <Link to={`/js-band-store/${book.id}`}>{book.title}</Link>
         </div>
-        <OrderItem
-          item={item}
-          setSelectedBooks={setSelectedBooks}
-          selectedBooks={selectedBooks}
-          isBookDisabled={isBookDisabled}
-        />
+        <div className={styles['order-item-form__container']}>
+          <OrderItem
+            item={item}
+            setSelectedBooks={setSelectedBooks}
+            selectedBooks={selectedBooks}
+            isBookDisabled={isBookDisabled}
+          />
+        </div>
       </form>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className={styles['order-form']}>
-      <div className={styles['order-form__body']}>
-        <div className={styles['order-form__descriptors']}>
-          <div className={styles['order-form__price-descriptor']}>Price</div>
-          <div className={styles['order-form__count-descriptor']}>Count</div>
-          <div className={styles['order-form__total-descriptor']}>Total</div>
+    <form onSubmit={handleSubmit} className={styles['order-item-form']}>
+      <div className={styles['order-item-form__body']}>
+        <div className={styles['order-item-form__descriptors']}>
+          <div className={styles['order-item-form__price-descriptor']}>
+            Price
+          </div>
+          <div className={styles['order-item-form__count-descriptor']}>
+            Count
+          </div>
+          <div className={styles['order-item-form__total-descriptor']}>
+            Total
+          </div>
         </div>
-
-        <OrderItem
-          item={item}
-          setSelectedBooks={setSelectedBooks}
-          selectedBooks={selectedBooks}
-          isBookDisabled={isBookDisabled}
-        />
+        <div
+          className={
+            (styles['order-item-form__container'],
+            styles['order-item-form__container_column'])
+          }
+        >
+          <OrderItem
+            item={item}
+            setSelectedBooks={setSelectedBooks}
+            selectedBooks={selectedBooks}
+            isBookDisabled={isBookDisabled}
+          />
+        </div>
       </div>
-      <div className={styles['order-form__button']}>
+
+      <div className={styles['order-item-form__button']}>
         <Button
           disabled={isBookDisabled}
           type="submit"

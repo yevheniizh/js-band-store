@@ -12,16 +12,16 @@ import { addToCart } from '../../redux/actions';
 
 function Order({ orderedBooks, addToCart, total }) {
   return (
-    <div className={styles.order__form}>
-      <div className={styles['order__form-header']}>
-        <div className={styles['order__form-header-name']}>Name</div>
-        <div className={styles['order__form-header-item']}>
-          <div className={styles['order__form-header-price']}>Price</div>
-          <div className={styles['order__form-header-count']}>Count</div>
-          <div className={styles['order__form-header-total']}>Total</div>
+    <div className={styles.order}>
+      <div className={styles.order__header}>
+        <div className={styles['order__header-name']}>Name</div>
+        <div className={styles['order__header-item']}>
+          <div className={styles['order__header-price']}>Price</div>
+          <div className={styles['order__header-count']}>Count</div>
+          <div className={styles['order__header-total']}>Total</div>
         </div>
       </div>
-      <div className={styles['order__form-body']}>
+      <div className={styles.order__body}>
         {orderedBooks.map((item) => {
           return (
             <OrderItemForm
@@ -33,7 +33,7 @@ function Order({ orderedBooks, addToCart, total }) {
           );
         })}
       </div>
-      <div className={styles['order__form-footer']}>
+      <div className={styles.order__footer}>
         <div className={styles.order__total}>Total price:</div>
         <div className={styles['order__total-price']}>{total.toFixed(2)}$</div>
       </div>

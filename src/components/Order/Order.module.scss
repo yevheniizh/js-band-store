@@ -1,154 +1,73 @@
-.order-form {
+.order {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
   align-items: center;
-  height: 100%;
-  background-color: var(--light-grey);
-  border-radius: 0.25rem;
-  padding: 2rem;
-
-  .order-form__body {
-    border-bottom: 1px dotted var(--heavy-grey);
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-
-    .order-form__descriptors {
-      .order-form__price-descriptor,
-      .order-form__count-descriptor,
-      .order-form__total-descriptor {
-        width: 100%;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        height: 3rem;
-        padding: 0.5rem 0;
-        color: var(--heavy-grey);
-      }
-    }
-
-    .order-form__container {
-      .order-form__title,
-      .order-form__price,
-      .order-form__count,
-      .order-form__total {
-        width: 100%;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        justify-items: flex-end;
-        height: 3rem;
-        padding: 0.5rem 0;
-        font-weight: 700;
-
-        .order-form__count-input {
-          height: 100%;
-          width: 4rem;
-        }
-      }
-    }
-  }
-
-  .order-form__button {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-
-    button {
-      width: 25%;
-      height: 2.5rem;
-      border-radius: 0.25rem;
-    }
-  }
-}
-
-@media screen and (max-width: 640px) {
-  .order-form {
-    padding: 1rem;
-
-    .order-form__button {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-
-      button {
-        width: 100%;
-        height: 2.5rem;
-        border-radius: 0.25rem;
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 920px) {
-  .order-form {
-    .order-form__button {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-
-      button {
-        width: 100%;
-        height: 2.5rem;
-        border-radius: 0.25rem;
-      }
-    }
-  }
-}
-
-.order-form-cart {
-  display: flex;
-  align-items: center;
   min-height: 3rem;
-  background-color: var(--light-grey);
   border-radius: 0.25rem;
-  padding: 0.5rem 1rem;
-  border-top: 1px dotted var(--heavy-grey);
+  padding: 1rem 0;
 
-  .order-form__title {
-    width: 50%;
-    height: 100%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-
-    a {
-      text-decoration: none;
-    }
-
-    a:visited {
-      text-decoration: none;
-      color: var(--black);
-    }
+  .order__body {
+    width: 100%;
   }
 
-  .order-form__container {
+  .order__header,
+  .order__footer {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
-    height: 100%;
-    width: 50%;
+    align-items: center;
+    width: 100%;
+    padding: 0 1rem;
+    height: 3rem;
+    background-color: var(--light-grey);
 
-    .order-form__price,
-    .order-form__count,
-    .order-form__total {
+    .order__header-name,
+    .order__header-item {
       display: flex;
       align-items: center;
-      height: 2rem;
-      width: 33.3%;
+      width: 50%;
 
-      .order-form__count-input {
-        height: 100%;
-        width: 50%;
+      .order__header-price,
+      .order__header-count,
+      .order__header-total {
+        display: flex;
+        justify-content: flex-end;
+        width: 33.3%;
       }
     }
 
-    .order-form__total {
+    .order-item-form__count-descriptor,
+    .order-item-form__total-descriptor {
+      width: 100%;
       display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      height: 3rem;
+      padding: 0.5rem 0;
+      color: var(--heavy-grey);
+    }
+  }
+
+  .order__header {
+    font-weight: 700;
+  }
+
+  .order__footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border-top: 2px solid var(--grey);
+
+    .order__total,
+    .order__total-price {
+      display: flex;
+      align-items: center;
       justify-content: flex-end;
+      width: calc(50% / 3);
+    }
+
+    .order__total-price {
+      font-weight: 700;
     }
   }
 }

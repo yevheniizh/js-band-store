@@ -13,7 +13,7 @@ function OrderItem({ item, selectedBooks, setSelectedBooks, isBookDisabled }) {
   };
 
   return (
-    <div className={styles['order-form__container']}>
+    <>
       <div className={styles['order-form__price']}>{book.price}$</div>
       <div className={styles['order-form__count']}>
         <input
@@ -29,7 +29,7 @@ function OrderItem({ item, selectedBooks, setSelectedBooks, isBookDisabled }) {
       <div className={styles['order-form__total']}>
         {(selectedBooks * book.price).toFixed(2)}$
       </div>
-    </div>
+    </>
   );
 }
 

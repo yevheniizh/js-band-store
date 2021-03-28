@@ -1,4 +1,4 @@
-.order-form {
+.order-item-form {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -8,7 +8,7 @@
   border-radius: 0.25rem;
   padding: 2rem;
 
-  .order-form__body {
+  .order-item-form__body {
     border-bottom: 1px dotted var(--heavy-grey);
     width: 100%;
     display: flex;
@@ -16,43 +16,44 @@
     align-items: center;
     margin-bottom: 1.5rem;
 
-    .order-form__descriptors {
-      .order-form__price-descriptor,
-      .order-form__count-descriptor,
-      .order-form__total-descriptor {
+    .order-item-form__descriptors {
+      .order-item-form__price-descriptor,
+      .order-item-form__count-descriptor,
+      .order-item-form__total-descriptor {
         width: 100%;
         display: flex;
         justify-content: flex-start;
         align-items: center;
         height: 3rem;
-        padding: 0.5rem 0;
+        padding: 0;
         color: var(--heavy-grey);
       }
     }
 
-    .order-form__container {
-      .order-form__title,
-      .order-form__price,
-      .order-form__count,
-      .order-form__total {
-        width: 100%;
+    .order-item-form__container {
+      display: flex;
+      justify-content: space-between;
+      width: 50%;
+      height: 100%;
+      padding: 0;
+
+      .order-item-form__title {
+        width: 50%;
         display: flex;
         justify-content: flex-end;
         align-items: center;
         justify-items: flex-end;
         height: 3rem;
-        padding: 0.5rem 0;
-        font-weight: 700;
-
-        .order-form__count-input {
-          height: 100%;
-          width: 4rem;
-        }
       }
+    }
+
+    .order-item-form__container_column {
+      flex-direction: column;
+      font-weight: 700;
     }
   }
 
-  .order-form__button {
+  .order-item-form__button {
     width: 100%;
     display: flex;
     justify-content: flex-end;
@@ -66,10 +67,10 @@
 }
 
 @media screen and (max-width: 640px) {
-  .order-form {
+  .order-item-form {
     padding: 1rem;
 
-    .order-form__button {
+    .order-item-form__button {
       width: 100%;
       display: flex;
       justify-content: center;
@@ -84,8 +85,8 @@
 }
 
 @media screen and (max-width: 920px) {
-  .order-form {
-    .order-form__button {
+  .order-item-form {
+    .order-item-form__button {
       width: 100%;
       display: flex;
       justify-content: center;
@@ -99,24 +100,25 @@
   }
 }
 
-.order-form-cart {
+.order-item-form-cart {
   display: flex;
   align-items: center;
   min-height: 3rem;
   background-color: var(--light-grey);
   border-radius: 0.25rem;
-  padding: 0.5rem 1rem;
-  border-top: 1px dotted var(--heavy-grey);
+  padding: 0 1rem;
+  border-top: 1px solid var(--grey);
 
-  .order-form__title {
+  .order-item-form__title {
     width: 50%;
     height: 100%;
     display: flex;
     justify-content: flex-start;
+    padding: 0.5rem 0;
     align-items: center;
 
     a {
-      text-decoration: none;
+      text-decoration: underline;
     }
 
     a:visited {
@@ -125,30 +127,11 @@
     }
   }
 
-  .order-form__container {
+  .order-item-form__container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     height: 100%;
     width: 50%;
-
-    .order-form__price,
-    .order-form__count,
-    .order-form__total {
-      display: flex;
-      align-items: center;
-      height: 2rem;
-      width: 33.3%;
-
-      .order-form__count-input {
-        height: 100%;
-        width: 50%;
-      }
-    }
-
-    .order-form__total {
-      display: flex;
-      justify-content: flex-end;
-    }
   }
 }
