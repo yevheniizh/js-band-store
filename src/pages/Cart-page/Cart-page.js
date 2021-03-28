@@ -21,7 +21,7 @@ import { makeOrder, addToCart, clearCart } from '../../redux/actions';
 import { userContext } from '../../contexts/user-context';
 
 import Loader from '../../components/Loader';
-import OrderForm from '../../components/Order-form/Order-form';
+import OrderItemForm from '../../components/Order-item-form';
 import Modal from '../../components/Modal';
 
 function CartPage({
@@ -97,7 +97,7 @@ function CartPage({
             <div className={styles['cart-page__form-body']}>
               {orderedBooks.map((item) => {
                 return (
-                  <OrderForm
+                  <OrderItemForm
                     key={uuid()}
                     appPage="Cart"
                     item={item}

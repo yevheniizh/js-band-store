@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import OrderForm from '../../components/Order-form';
+import OrderItemForm from '../../components/Order-item-form';
 import styles from './Book-details-page.module.scss';
 
 import { ReactComponent as Arrow } from './icons/Arrow-left.svg';
@@ -90,14 +90,14 @@ function BookDetailsPage({
 
       {orderedBooks && orderedBooks.find(({ book }) => book.id === bookId) ? (
         <div className={styles['book-details-page__form']}>
-          <OrderForm
+          <OrderItemForm
             item={orderedBooks.find(({ book }) => book.id === bookId)}
             addToCart={addToCart}
           />
         </div>
       ) : (
         <div className={styles['book-details-page__form']}>
-          <OrderForm item={{ book }} addToCart={addToCart} />
+          <OrderItemForm item={{ book }} addToCart={addToCart} />
         </div>
       )}
     </div>
