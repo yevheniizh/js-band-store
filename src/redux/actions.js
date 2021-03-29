@@ -114,17 +114,17 @@ export const makeOrder = (username, order) => async (dispatch) => {
     });
 
     if (response.status === 400) {
-      const failureData = await response.json();
-      return dispatch({ type: MAKE_ORDER + SUCCESS, failureData });
+      const failureMessage = await response.json();
+      return dispatch({ type: MAKE_ORDER + SUCCESS, failureMessage });
     }
 
     if (response.status === 401) {
-      const failureData = await response.json();
-      return dispatch({ type: MAKE_ORDER + SUCCESS, failureData });
+      const failureMessage = await response.json();
+      return dispatch({ type: MAKE_ORDER + SUCCESS, failureMessage });
     }
 
-    const data = await response.json();
-    return dispatch({ type: MAKE_ORDER + SUCCESS, data });
+    const message = await response.json();
+    return dispatch({ type: MAKE_ORDER + SUCCESS, message });
   } catch (error) {
     return dispatch({ type: MAKE_ORDER + FAILURE, error });
   }

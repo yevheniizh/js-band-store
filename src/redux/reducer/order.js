@@ -15,10 +15,11 @@ const initialState = {
   loaded: false,
   error: null,
   message: {},
+  failureMessage: {},
 };
 
 const reducer = (state = initialState, action) => {
-  const { type, data, payload, error } = action;
+  const { type, message, failureMessage, payload, error } = action;
 
   switch (type) {
     case ADD_TO_CART:
@@ -38,11 +39,19 @@ const reducer = (state = initialState, action) => {
         error: null,
       };
     case MAKE_ORDER + SUCCESS:
+      if (failureMessage)
+        return {
+          ...state,
+          loading: false,
+          loaded: true,
+          failureMessage,
+        };
+
       return {
         ...state,
         loading: false,
         loaded: true,
-        message: data,
+        message,
       };
     case MAKE_ORDER + FAILURE:
       return {
