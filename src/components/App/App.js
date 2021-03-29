@@ -7,7 +7,7 @@ import { setExistedSessionUser } from '../../redux/actions';
 
 import LogInPage from '../../pages/Log-In-page';
 import NotFoundPage from '../../pages/Not-found-page';
-import Header from '../header/header';
+import Header from '../Header';
 import StorePage from '../../pages/Store-page';
 import BookDetailsPage from '../../pages/Book-details-page';
 import CartPage from '../../pages/Cart-page';

@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import styles from './header.module.scss';
+import styles from './Header.module.scss';
 import { userContext } from '../../contexts/user-context';
 import { logOut } from '../../redux/actions';
 
