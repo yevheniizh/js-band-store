@@ -57,5 +57,6 @@ $ npm run stylelint:fix   // start fixing in css/scss as many issues as possible
 ## To launch tests
 
 ```sh
-$ npm run test            // start tests over all app
+$ npm run test            // start tests over all app in 'watch' mode
+$ npm run test:coverage   // start tests over all app with report
 ```

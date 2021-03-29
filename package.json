@@ -7,6 +7,8 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.0",
+    "enzyme": "^3.11.0",
     "node-sass": "^5.0.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
@@ -25,6 +27,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:coverage": "npm run test -- --coverage --watchAll=false --silent",
     "test:staged": "npm run test -- --watchAll=false --passWithNoTests --findRelatedTests",
     "eject": "react-scripts eject",
     "lint:staged": "eslint --fix",
@@ -94,6 +97,7 @@
     "husky": "^4.3.8",
     "lint-staged": "^10.5.4",
     "prettier": "^2.2.1",
+    "redux-mock-store": "^1.5.4",
     "stylelint": "^13.12.0",
     "stylelint-config-sass-guidelines": "^8.0.0"
   }
