@@ -7,10 +7,11 @@ const initialState = {
   loading: false,
   loaded: false,
   error: null,
+  failureMessage: {},
 };
 
 export default (state = initialState, action) => {
-  const { type, data, failureData, error } = action;
+  const { type, data, failureMessage, error } = action;
 
   switch (type) {
     case LOAD_BOOKS + REQUEST:
@@ -21,12 +22,12 @@ export default (state = initialState, action) => {
         error: null,
       };
     case LOAD_BOOKS + SUCCESS:
-      if (failureData)
+      if (failureMessage)
         return {
           ...state,
-          entities: failureData,
           loading: false,
           loaded: true,
+          failureMessage,
         };
 
       return {
@@ -53,12 +54,12 @@ export default (state = initialState, action) => {
         error: null,
       };
     case LOAD_BOOK + SUCCESS:
-      if (failureData)
+      if (failureMessage)
         return {
           ...state,
-          entities: failureData,
           loading: false,
           loaded: true,
+          failureMessage,
         };
 
       return {

@@ -18,7 +18,7 @@ import {
   booksListSelector,
   booksLoadedSelector,
   booksLoadingSelector,
-  failureDataSelector,
+  failureMessageSelector,
   orderBooksSelector,
 } from '../../redux/selectors';
 
@@ -29,13 +29,12 @@ function BookDetailsPage({
   loading,
   loadBook,
   addToCart,
-  failureData,
+  failureMessage,
   orderedBooks,
 }) {
   const { sessionUser } = useContext(userContext);
   const [book, setBook] = useState({});
   const { bookId } = match.params;
-  console.log(orderedBooks);
 
   useEffect(() => {
     if (!loading && !loaded) loadBook(sessionUser, bookId);
@@ -50,10 +49,10 @@ function BookDetailsPage({
 
   if (loading || !loaded) return <Loader />;
 
-  if (failureData.message) {
+  if (failureMessage.message) {
     return (
       <div>
-        <h1>Something went wrong: {failureData.message} 🙊</h1>
+        <h1>Something went wrong: {failureMessage.message} 🙊</h1>
       </div>
     );
   }
@@ -124,7 +123,7 @@ BookDetailsPage.propTypes = {
       bookId: PropTypes.string,
     }),
   }).isRequired,
-  failureData: PropTypes.shape({
+  failureMessage: PropTypes.shape({
     message: PropTypes.string,
   }),
   loading: PropTypes.bool.isRequired,
@@ -136,7 +135,7 @@ BookDetailsPage.propTypes = {
 export default connect(
   (state) => ({
     books: booksListSelector(state),
-    failureData: failureDataSelector(state),
+    failureMessage: failureMessageSelector(state),
     loading: booksLoadingSelector(state),
     loaded: booksLoadedSelector(state),
     orderedBooks: orderBooksSelector(state),

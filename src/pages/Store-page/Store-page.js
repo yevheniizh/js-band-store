@@ -13,10 +13,10 @@ import {
   booksListSelector,
   booksLoadedSelector,
   booksLoadingSelector,
-  failureDataSelector,
+  failureMessageSelector,
 } from '../../redux/selectors';
 
-function StorePage({ loadBooks, loading, loaded, books, failureData }) {
+function StorePage({ loadBooks, loading, loaded, books, failureMessage }) {
   const { sessionUser } = useContext(userContext);
   const [modifiedBooks, setModifiedBooks] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -30,12 +30,12 @@ function StorePage({ loadBooks, loading, loaded, books, failureData }) {
   useEffect(() => {
     if (
       Object.keys(books).length === 1 &&
-      !failureData.message &&
+      !failureMessage.message &&
       !loading &&
       loaded
     )
       loadBooks(sessionUser);
-  }, [books, loadBooks, loading, loaded, sessionUser, failureData]);
+  }, [books, loadBooks, loading, loaded, sessionUser, failureMessage]);
 
   // set initial list of modified books
   useEffect(() => {
@@ -44,13 +44,13 @@ function StorePage({ loadBooks, loading, loaded, books, failureData }) {
 
   // set searched books
   useEffect(() => {
-    if (books && !failureData.message) {
+    if (books && !failureMessage.message) {
       const results = books.filter(({ title }) =>
         title.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setSearchResults(results);
     }
-  }, [books, searchTerm, failureData]);
+  }, [books, searchTerm, failureMessage]);
 
   // filter searched books
   const filterBooks = useCallback(
@@ -98,10 +98,10 @@ function StorePage({ loadBooks, loading, loaded, books, failureData }) {
 
   if (loading || !loaded) return <Loader />;
 
-  if (failureData.message) {
+  if (failureMessage.message) {
     return (
       <div>
-        <h1>Something went wrong: {failureData.message} 🙊</h1>
+        <h1>Something went wrong: {failureMessage.message} 🙊</h1>
       </div>
     );
   }
@@ -160,7 +160,7 @@ StorePage.propTypes = {
       tags: PropTypes.arrayOf(PropTypes.string),
     })
   ),
-  failureData: PropTypes.shape({
+  failureMessage: PropTypes.shape({
     message: PropTypes.string,
   }),
   loadBooks: PropTypes.func.isRequired,
@@ -171,7 +171,7 @@ StorePage.propTypes = {
 export default connect(
   (state) => ({
     books: booksListSelector(state),
-    failureData: failureDataSelector(state),
+    failureMessage: failureMessageSelector(state),
     loading: booksLoadingSelector(state),
     loaded: booksLoadedSelector(state),
   }),

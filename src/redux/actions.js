@@ -54,8 +54,8 @@ export const loadBooks = (username) => async (dispatch) => {
     });
 
     if (response.status === 401) {
-      const failureData = await response.json();
-      return dispatch({ type: LOAD_BOOKS + SUCCESS, failureData });
+      const failureMessage = await response.json();
+      return dispatch({ type: LOAD_BOOKS + SUCCESS, failureMessage });
     }
 
     const data = await response.json();
@@ -77,8 +77,8 @@ export const loadBook = (username, bookId) => async (dispatch) => {
     });
 
     if (response.status === 401) {
-      const failureData = await response.json();
-      return dispatch({ type: LOAD_BOOK + SUCCESS, failureData });
+      const failureMessage = await response.json();
+      return dispatch({ type: LOAD_BOOK + SUCCESS, failureMessage });
     }
 
     const data = await response.json();

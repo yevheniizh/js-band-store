@@ -6,7 +6,7 @@ export const loginLoadedSelector = (state) => state.login.loaded;
 
 const booksSelector = (state) => state.books.entities;
 export const booksListSelector = createSelector(booksSelector, Object.values);
-export const failureDataSelector = (state) => state.books.entities;
+export const failureMessageSelector = (state) => state.books.failureMessage;
 export const booksLoadingSelector = (state) => state.books.loading;
 export const booksLoadedSelector = (state) => state.books.loaded;
 
