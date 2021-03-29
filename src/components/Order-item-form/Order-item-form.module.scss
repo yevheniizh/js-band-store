@@ -132,6 +132,21 @@
     flex-direction: row;
     justify-content: space-between;
     height: 100%;
-    width: 50%;
+    width: calc(50% - 1rem);
+  }
+  .order-item-form__remove-button {
+    width: 1rem;
+    margin-left: 1rem;
+    text-align: center;
+    cursor: pointer;
+
+    span {
+      outline: none;
+      color: var(--heavy-grey);
+    }
+
+    span:hover {
+      color: var(--black);
+    }
   }
 }

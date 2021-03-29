@@ -1,12 +1,14 @@
 /* eslint-disable react/require-default-props */
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Button from '../Button';
 import styles from './Order-item-form.module.scss';
 import OrderItem from './Order-item';
+import { addToCart, removeItem } from '../../redux/actions';
 
-function OrderItemForm({ addToCart, appPage, item, modal }) {
+function OrderItemForm({ addToCart, appPage, item, modal, removeItem }) {
   const [selectedBooks, setSelectedBooks] = useState(item.count || 0);
   const [isBookDisabled, setIsBookDisabled] = useState(false);
   const { book } = item;
@@ -37,6 +39,20 @@ function OrderItemForm({ addToCart, appPage, item, modal }) {
             isBookDisabled={isBookDisabled}
           />
         </div>
+        {modal && <div className={styles['order-item-form__remove-button']} />}
+
+        {!modal && (
+          <div className={styles['order-item-form__remove-button']}>
+            <span
+              onClick={() => removeItem(book.id)}
+              onKeyDown={() => removeItem(book.id)}
+              role="button"
+              tabIndex="0"
+            >
+              &times;
+            </span>
+          </div>
+        )}
       </form>
     );
   }
@@ -83,6 +99,7 @@ function OrderItemForm({ addToCart, appPage, item, modal }) {
 
 OrderItemForm.propTypes = {
   modal: PropTypes.bool,
+  removeItem: PropTypes.func,
   addToCart: PropTypes.func,
   appPage: PropTypes.string,
   item: PropTypes.shape({
@@ -102,4 +119,4 @@ OrderItemForm.propTypes = {
   }),
 };
 
-export default OrderItemForm;
+export default connect(null, { addToCart, removeItem })(OrderItemForm);

@@ -10,6 +10,7 @@ import {
   FAILURE,
   ADD_TO_CART,
   CLEAR_CART,
+  REMOVE_ITEM,
 } from './constants';
 
 const BACKEND_URL = 'https://js-band-store-api.glitch.me';
@@ -91,6 +92,8 @@ export const addToCart = (id, quantity) => ({
   type: ADD_TO_CART,
   payload: { id, quantity },
 });
+
+export const removeItem = (id) => ({ type: REMOVE_ITEM, payload: { id } });
 
 export const clearCart = () => ({
   type: CLEAR_CART,

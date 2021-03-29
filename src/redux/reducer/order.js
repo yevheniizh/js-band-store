@@ -6,6 +6,7 @@ import {
   FAILURE,
   SIGN_OUT,
   CLEAR_CART,
+  REMOVE_ITEM,
 } from '../constants';
 
 const initialState = {
@@ -50,7 +51,14 @@ const reducer = (state = initialState, action) => {
         loaded: false,
         error,
       };
-
+    case REMOVE_ITEM:
+      return {
+        ...state,
+        entities: {
+          ...state.entities,
+          [payload.id]: 0,
+        },
+      };
     case CLEAR_CART:
       return {
         ...state,

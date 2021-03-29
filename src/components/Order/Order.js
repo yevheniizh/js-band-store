@@ -8,9 +8,8 @@ import { v4 as uuid } from 'uuid';
 import styles from './Order.module.scss';
 import OrderItemForm from '../Order-item-form';
 import { orderBooksSelector, totalSelector } from '../../redux/selectors';
-import { addToCart } from '../../redux/actions';
 
-function Order({ orderedBooks, addToCart, total, modal }) {
+function Order({ orderedBooks, total, modal }) {
   return (
     <div className={styles.order}>
       <div className={styles.order__header}>
@@ -29,7 +28,6 @@ function Order({ orderedBooks, addToCart, total, modal }) {
               key={uuid()}
               appPage="Cart"
               item={item}
-              addToCart={addToCart}
             />
           );
         })}
@@ -44,7 +42,6 @@ function Order({ orderedBooks, addToCart, total, modal }) {
 
 Order.propTypes = {
   modal: PropTypes.bool,
-  addToCart: PropTypes.func,
   total: PropTypes.number,
   orderedBooks: PropTypes.arrayOf(
     PropTypes.shape({
@@ -65,10 +62,7 @@ Order.propTypes = {
   ),
 };
 
-export default connect(
-  (state) => ({
-    orderedBooks: orderBooksSelector(state),
-    total: totalSelector(state),
-  }),
-  { addToCart }
-)(Order);
+export default connect((state) => ({
+  orderedBooks: orderBooksSelector(state),
+  total: totalSelector(state),
+}))(Order);
