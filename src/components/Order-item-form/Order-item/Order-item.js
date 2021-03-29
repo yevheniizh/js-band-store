@@ -14,8 +14,17 @@ function OrderItem({
   const { book } = item;
 
   const handleChange = (ev) => {
+    ev.preventDefault();
+    ev.target.setCustomValidity('');
+
     const quantity = parseInt(ev.target.value, 10);
     if (quantity >= 0 && quantity <= book.count) setSelectedBooks(quantity);
+
+    if (ev.target.validity.rangeOverflow) {
+      ev.target.setCustomValidity(
+        `Just ${book.count} items available in store` // set custom validity error
+      );
+    }
   };
 
   return (
