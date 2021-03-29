@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/js-band-store/static/css/main.c5ee8fc6.chunk.css",
+    "main.js": "/js-band-store/static/js/main.fe761457.chunk.js",
+    "main.js.map": "/js-band-store/static/js/main.fe761457.chunk.js.map",
+    "runtime-main.js": "/js-band-store/static/js/runtime-main.f08faff7.js",
+    "runtime-main.js.map": "/js-band-store/static/js/runtime-main.f08faff7.js.map",
+    "static/js/2.c471c099.chunk.js": "/js-band-store/static/js/2.c471c099.chunk.js",
+    "static/js/2.c471c099.chunk.js.map": "/js-band-store/static/js/2.c471c099.chunk.js.map",
+    "index.html": "/js-band-store/index.html",
+    "static/css/main.c5ee8fc6.chunk.css.map": "/js-band-store/static/css/main.c5ee8fc6.chunk.css.map",
+    "static/js/2.c471c099.chunk.js.LICENSE.txt": "/js-band-store/static/js/2.c471c099.chunk.js.LICENSE.txt",
+    "static/media/Arrow-left.14c4c811.svg": "/js-band-store/static/media/Arrow-left.14c4c811.svg",
+    "static/media/Cart.fa7c2b08.svg": "/js-band-store/static/media/Cart.fa7c2b08.svg",
+    "static/media/Check-circle.6294639e.svg": "/js-band-store/static/media/Check-circle.6294639e.svg",
+    "static/media/Eyeglasses.a697457a.svg": "/js-band-store/static/media/Eyeglasses.a697457a.svg",
+    "static/media/Log-In-page-banner.4b8f95d9.png": "/js-band-store/static/media/Log-In-page-banner.4b8f95d9.png",
+    "static/media/Tags.47a9fffe.svg": "/js-band-store/static/media/Tags.47a9fffe.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.f08faff7.js",
+    "static/js/2.c471c099.chunk.js",
+    "static/css/main.c5ee8fc6.chunk.css",
+    "static/js/main.fe761457.chunk.js"
+  ]
+}
