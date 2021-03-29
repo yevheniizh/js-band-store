@@ -1,0 +1,17 @@
+.order-form__title,
+.order-form__price,
+.order-form__count,
+.order-form__total {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  min-height: 2rem;
+  height: 3rem;
+
+  .order-form__count-input {
+    height: 100%;
+    width: 3rem;
+    max-height: 2rem;
+  }
+}

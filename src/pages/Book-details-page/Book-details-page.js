@@ -1,15 +1,16 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/require-default-props */
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import OrderForm from '../../components/Order-form';
+import OrderItemForm from '../../components/Order-item-form';
 import styles from './Book-details-page.module.scss';
 
 import { ReactComponent as Arrow } from './icons/Arrow-left.svg';
-import { ReactComponent as Tag } from './icons/Tag.svg';
-import { ReactComponent as Glasses } from './icons/Glasses.svg';
-import { loadBook } from '../../redux/actions';
+import { ReactComponent as Tags } from './icons/Tags.svg';
+import { ReactComponent as Eyeglasses } from './icons/Eyeglasses.svg';
+import { loadBook, addToCart } from '../../redux/actions';
 import { userContext } from '../../contexts/user-context';
 
 import Loader from '../../components/Loader';
@@ -17,9 +18,20 @@ import {
   booksListSelector,
   booksLoadedSelector,
   booksLoadingSelector,
+  failureMessageSelector,
+  orderBooksSelector,
 } from '../../redux/selectors';
 
-function BookDetailsPage({ books, match, loaded, loading, loadBook }) {
+function BookDetailsPage({
+  books,
+  match,
+  loaded,
+  loading,
+  loadBook,
+  addToCart,
+  failureMessage,
+  orderedBooks,
+}) {
   const { sessionUser } = useContext(userContext);
   const [book, setBook] = useState({});
   const { bookId } = match.params;
@@ -36,6 +48,14 @@ function BookDetailsPage({ books, match, loaded, loading, loadBook }) {
   }, [books, bookId, loading, loaded]);
 
   if (loading || !loaded) return <Loader />;
+
+  if (failureMessage.message) {
+    return (
+      <div>
+        <h1>Something went wrong: {failureMessage.message} 🙊</h1>
+      </div>
+    );
+  }
 
   return (
     <div className={styles['book-details-page']}>
@@ -58,17 +78,27 @@ function BookDetailsPage({ books, match, loaded, loading, loadBook }) {
           {book.description}
         </div>
         <div className={styles['book-details-page__level']}>
-          <Glasses className={styles['book-details-page__level-icon']} />
+          <Eyeglasses className={styles['book-details-page__level-icon']} />
           {book.level}
         </div>
         <div className={styles['book-details-page__tags']}>
-          <Tag className={styles['book-details-page__tags-icon']} />
+          <Tags className={styles['book-details-page__tags-icon']} />
           {book.tags}
         </div>
       </div>
-      <div className={styles['book-details-page__form']}>
-        <OrderForm price={book.price} count={book.count} />
-      </div>
+
+      {orderedBooks && orderedBooks.find(({ book }) => book.id === bookId) ? (
+        <div className={styles['book-details-page__form']}>
+          <OrderItemForm
+            item={orderedBooks.find(({ book }) => book.id === bookId)}
+            addToCart={addToCart}
+          />
+        </div>
+      ) : (
+        <div className={styles['book-details-page__form']}>
+          <OrderItemForm item={{ book }} addToCart={addToCart} />
+        </div>
+      )}
     </div>
   );
 }
@@ -93,16 +123,22 @@ BookDetailsPage.propTypes = {
       bookId: PropTypes.string,
     }),
   }).isRequired,
+  failureMessage: PropTypes.shape({
+    message: PropTypes.string,
+  }),
   loading: PropTypes.bool.isRequired,
   loaded: PropTypes.bool.isRequired,
   loadBook: PropTypes.func.isRequired,
+  addToCart: PropTypes.func.isRequired,
 };
 
 export default connect(
   (state) => ({
     books: booksListSelector(state),
+    failureMessage: failureMessageSelector(state),
     loading: booksLoadingSelector(state),
     loaded: booksLoadedSelector(state),
+    orderedBooks: orderBooksSelector(state),
   }),
-  { loadBook }
+  { loadBook, addToCart }
 )(BookDetailsPage);

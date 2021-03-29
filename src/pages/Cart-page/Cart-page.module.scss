@@ -1,0 +1,140 @@
+.cart-page {
+  margin: 2rem;
+
+  .loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cart-page__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-direction: column;
+
+    .cart-page__title {
+      margin: 0;
+    }
+
+    .cart-page__items-quantity {
+      color: var(--heavy-grey);
+    }
+  }
+
+  .cart-page__body_full {
+    .cart-page__form {
+      display: flex;
+      flex-direction: column;
+      margin: 1rem 0;
+      width: 100%;
+      height: 100%;
+
+      .cart-page__form-body {
+        min-height: 3rem;
+        width: 100%;
+        height: 100%;
+      }
+
+      .cart-page__form-header,
+      .cart-page__form-footer {
+        padding: 0 1rem;
+        width: 100%;
+        height: 3rem;
+        border-top: 1px dotted var(--heavy-grey);
+        background-color: var(--light-grey);
+      }
+
+      .cart-page__form-header {
+        display: flex;
+        align-items: center;
+        font-weight: 700;
+        border-top: none;
+
+        .cart-page__form-header-name,
+        .cart-page__form-header-item {
+          height: 100%;
+          width: 50%;
+          display: flex;
+          align-items: center;
+
+          .cart-page__form-header-price,
+          .cart-page__form-header-count,
+          .cart-page__form-header-total {
+            width: 33.3%;
+            height: auto;
+            display: flex;
+            align-items: center;
+          }
+
+          .cart-page__form-header-total {
+            display: flex;
+            justify-content: flex-end;
+          }
+        }
+      }
+
+      .cart-page__form-footer {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        .cart-page__total,
+        .cart-page__total-price {
+          width: calc(50% / 3);
+        }
+
+        .cart-page__total-price {
+          font-weight: 700;
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+        }
+      }
+    }
+
+    .cart-page__button-container {
+      width: 100%;
+
+      .cart-page__submit-button {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+
+        button {
+          width: 25%;
+          height: 2.5rem;
+          border-radius: 0.25rem;
+        }
+      }
+    }
+  }
+
+  .cart-page__body_empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .cart-page__body-empty-icon svg {
+      height: 5rem;
+      width: 5rem;
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+@media screen and (min-width: 960px) {
+  .cart-page {
+    width: 65%;
+    margin: 2rem auto;
+  }
+}

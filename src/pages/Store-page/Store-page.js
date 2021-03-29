@@ -13,10 +13,10 @@ import {
   booksListSelector,
   booksLoadedSelector,
   booksLoadingSelector,
-  failureDataSelector,
+  failureMessageSelector,
 } from '../../redux/selectors';
 
-function StorePage({ loadBooks, loading, loaded, books, failureData }) {
+function StorePage({ loadBooks, loading, loaded, books, failureMessage }) {
   const { sessionUser } = useContext(userContext);
   const [modifiedBooks, setModifiedBooks] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -28,9 +28,14 @@ function StorePage({ loadBooks, loading, loaded, books, failureData }) {
   }, [loadBooks, loading, loaded, sessionUser]);
 
   useEffect(() => {
-    if (Object.keys(books).length === 1 && !loading && loaded)
+    if (
+      Object.keys(books).length === 1 &&
+      !failureMessage.message &&
+      !loading &&
+      loaded
+    )
       loadBooks(sessionUser);
-  }, [books, loadBooks, loading, loaded, sessionUser]);
+  }, [books, loadBooks, loading, loaded, sessionUser, failureMessage]);
 
   // set initial list of modified books
   useEffect(() => {
@@ -39,13 +44,13 @@ function StorePage({ loadBooks, loading, loaded, books, failureData }) {
 
   // set searched books
   useEffect(() => {
-    if (books) {
+    if (books && !failureMessage.message) {
       const results = books.filter(({ title }) =>
         title.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setSearchResults(results);
     }
-  }, [books, searchTerm]);
+  }, [books, searchTerm, failureMessage]);
 
   // filter searched books
   const filterBooks = useCallback(
@@ -93,6 +98,14 @@ function StorePage({ loadBooks, loading, loaded, books, failureData }) {
 
   if (loading || !loaded) return <Loader />;
 
+  if (failureMessage.message) {
+    return (
+      <div>
+        <h1>Something went wrong: {failureMessage.message} 🙊</h1>
+      </div>
+    );
+  }
+
   if (loaded && books && modifiedBooks) {
     const bookContainer = modifiedBooks.map((book) => (
       <BookCard key={uuid()} book={book} />
@@ -130,14 +143,6 @@ function StorePage({ loadBooks, loading, loaded, books, failureData }) {
     );
   }
 
-  if (failureData.message) {
-    return (
-      <div>
-        <h1>Something went wrong: {failureData.message} 🙊</h1>
-      </div>
-    );
-  }
-
   return <Loader />;
 }
 
@@ -155,7 +160,7 @@ StorePage.propTypes = {
       tags: PropTypes.arrayOf(PropTypes.string),
     })
   ),
-  failureData: PropTypes.shape({
+  failureMessage: PropTypes.shape({
     message: PropTypes.string,
   }),
   loadBooks: PropTypes.func.isRequired,
@@ -166,7 +171,7 @@ StorePage.propTypes = {
 export default connect(
   (state) => ({
     books: booksListSelector(state),
-    failureData: failureDataSelector(state),
+    failureMessage: failureMessageSelector(state),
     loading: booksLoadingSelector(state),
     loaded: booksLoadedSelector(state),
   }),
