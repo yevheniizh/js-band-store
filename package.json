@@ -27,6 +27,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:coverage": "npm run test -- --coverage --watchAll=false --silent",
     "test:staged": "npm run test -- --watchAll=false --passWithNoTests --findRelatedTests",
     "eject": "react-scripts eject",
     "lint:staged": "eslint --fix",
